@@ -94,6 +94,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Extensions\HTTPListenerContextExtensions.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
+    <Compile Include="Helpers\PasswordEncryptionHelper.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Server.cs" />
