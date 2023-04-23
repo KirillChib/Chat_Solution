@@ -11,6 +11,6 @@ namespace Chat_Server.Domain.Entities
 		public int Id { get; set; }
 		public string Login { get; set; }
 		public string Name { set; get; }
-		public string PasswordHash { get; set; }
+		public byte[] PasswordHash { get; set; }
 	}
 }

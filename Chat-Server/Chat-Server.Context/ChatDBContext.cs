@@ -19,8 +19,6 @@ namespace Chat_Server.Context
 			modelBuilder.Entity<User>().Property(u => u.Name)
 																.IsRequired()
 																.IsUnicode();
-			modelBuilder.Entity<User>().Property(u => u.PasswordHash)
-																.IsRequired();
 
 			base.OnModelCreating(modelBuilder);
 		}

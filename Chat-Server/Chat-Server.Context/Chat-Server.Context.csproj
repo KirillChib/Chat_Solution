@@ -52,6 +52,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatDBContext.cs" />
+    <Compile Include="Migrations\202304221226307_InitialCreate.cs" />
+    <Compile Include="Migrations\202304221226307_InitialCreate.Designer.cs">
+      <DependentUpon>202304221226307_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304230915539_Update_User.cs" />
+    <Compile Include="Migrations\202304230915539_Update_User.designer.cs">
+      <DependentUpon>202304230915539_Update_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304230934577_del_PasHash.cs" />
+    <Compile Include="Migrations\202304230934577_del_PasHash.designer.cs">
+      <DependentUpon>202304230934577_del_PasHash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304230936593_Add_PassHash_User.cs" />
+    <Compile Include="Migrations\202304230936593_Add_PassHash_User.designer.cs">
+      <DependentUpon>202304230936593_Add_PassHash_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +80,20 @@
       <Project>{3179321C-3FA4-4736-93E2-0DCDDBB19835}</Project>
       <Name>Chat-Server.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202304221226307_InitialCreate.resx">
+      <DependentUpon>202304221226307_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304230915539_Update_User.resx">
+      <DependentUpon>202304230915539_Update_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304230934577_del_PasHash.resx">
+      <DependentUpon>202304230934577_del_PasHash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304230936593_Add_PassHash_User.resx">
+      <DependentUpon>202304230936593_Add_PassHash_User.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
