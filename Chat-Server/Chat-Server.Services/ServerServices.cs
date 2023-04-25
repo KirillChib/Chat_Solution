@@ -9,7 +9,20 @@ namespace Chat_Server.Services
 	public class ServerServices : IServerServices
 	{
 		private ChatDBContext dBContext = new ChatDBContext();
-		
+
+		public async Task<User> AuthorizationUserAsync(string log, string pass)
+		{
+			 var user = await Task.Run(() => dBContext.Users.FirstOrDefault(u => u.Login == log));
+			if (user is null)
+				return null;
+
+			var hash = PasswordEncryptionHelper.ToHash(pass);
+			if (user.PasswordHash.Equals(hash))
+				return user;
+			else
+				return null;
+		}
+
 		public async Task<bool> CreateUserAsync(string log, string pass, string name)
 		{
 			if(await Task.Run(() => dBContext.Users.Any(u => u.Login == log)) ||
@@ -18,11 +31,12 @@ namespace Chat_Server.Services
 				return false;
 			}
 
-			var user = new User 
+			var user = new User
 			{
 				Login = log,
-				PasswordHash = PasswordEncryptionHelper
-			}
+				PasswordHash = PasswordEncryptionHelper.ToHash(pass),
+				Name = name
+			};
 
 			 dBContext.Users.Add(user);
 			await dBContext.SaveChangesAsync();

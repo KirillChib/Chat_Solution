@@ -19,6 +19,18 @@ namespace Chat_Server.Helpers
 
 			var header = new JwtHeader(credentials);
 
+			var payload = new JwtPayload
+		   {
+			   { "id", user.Id},
+			   { "login", user.Login},
+				{"name",user.Name }
+		   };
+
+			var securityToken = new JwtSecurityToken(header, payload);
+			var handler = new JwtSecurityTokenHandler();
+
+			return handler.WriteToken(securityToken);
+
 		}
 	}
 }

@@ -56,6 +56,10 @@
     <Compile Include="ServerServices.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chat-Server.Common\Chat-Server.Common.csproj">
+      <Project>{08595E47-59C3-4502-8598-514CD0EDE01B}</Project>
+      <Name>Chat-Server.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chat-Server.Context\Chat-Server.Context.csproj">
       <Project>{BFAD42CC-1CDE-4193-B6DB-5BB89DC3A486}</Project>
       <Name>Chat-Server.Context</Name>
