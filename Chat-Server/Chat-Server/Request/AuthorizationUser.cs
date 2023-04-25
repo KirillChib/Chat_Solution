@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Request
 {
-	internal class AuthorizationUser
+	public  class AuthorizationUser
 	{
+		public string Login { get; set; }
+		public string Password { get; set; }
 	}
 }

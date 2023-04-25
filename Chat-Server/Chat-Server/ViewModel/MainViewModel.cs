@@ -6,7 +6,7 @@ namespace Chat_Server.ViewModel
 {
 	public class MainViewModel : ViewModelBase
 	{
-		private ChatDBContext _context;
+		
 		public MainViewModel()
 		{
 			

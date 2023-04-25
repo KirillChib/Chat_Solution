@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Request
 {
-	internal class RegistrationsUser
+	public class RegistrationsUser
 	{
+		public string Login { get; set; }
+		public string Password { get; set; }
+		public string Name { get; set; }
 	}
 }
