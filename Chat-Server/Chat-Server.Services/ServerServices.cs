@@ -17,12 +17,12 @@ namespace Chat_Server.Services
 				return null;
 
 			var hash = PasswordEncryptionHelper.ToHash(pass);
-			if (user.PasswordHash.Equals(hash))
+			if (user.PasswordHash.SequenceEqual(hash))
 				return user;
 			else
 				return null;
 		}
-
+		//user.PasswordHash.SequenceEquals(hash)
 		public async Task<bool> CreateUserAsync(string log, string pass, string name)
 		{
 			if(await Task.Run(() => dBContext.Users.Any(u => u.Login == log)) ||

@@ -1,4 +1,6 @@
-﻿using Grace.DependencyInjection;
+﻿using Chat_Server.Commands;
+using Chat_Server.Services;
+using Grace.DependencyInjection;
 using System;
 using System.Collections.Generic;
 
@@ -19,8 +21,8 @@ namespace Chat_Server
 
 		private static void RegisterDependencies(IExportRegistrationBlock registration)
 		{
-			//RegisterSingleton<ICommand, AddFriendCommand>(registration);
-			//RegisterSingleton<ICommand, AddPrivateMessageCommand>(registration);
+			RegisterSingleton<ICommand, CreateUserCommand>(registration);
+			RegisterSingleton<ICommand, AuthorizationUserCommand>(registration);
 			//RegisterSingleton<ICommand, AddPublicMessageCommand>(registration);
 			//RegisterSingleton<ICommand, CreateUserCommand>(registration);
 			//RegisterSingleton<ICommand, ExitCommand>(registration);
@@ -31,6 +33,7 @@ namespace Chat_Server
 			//RegisterSingleton<ICommand, LogInCommand>(registration);
 
 			RegisterSingleton<Iserver, Server>(registration);
+			RegisterSingleton<IServerServices,ServerServices>(registration);
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom
