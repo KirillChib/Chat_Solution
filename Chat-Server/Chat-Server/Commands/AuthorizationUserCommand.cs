@@ -3,6 +3,7 @@ using Chat_Server.Helpers;
 using Chat_Server.Request;
 using Chat_Server.Services;
 using Chat_Server.Services.Encryption;
+using Chat_Server.Services.JWT;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,11 +17,13 @@ namespace Chat_Server.Commands
 		public HttpMethod Method => HttpMethod.Post;
 		private IServerServices _serverServices;
 		private IEncryptionService _encryptionService;
+		private IJwtService _jwtService;
 
-		public AuthorizationUserCommand(IServerServices serverServices,IEncryptionService encryptionService)
+		public AuthorizationUserCommand(IServerServices serverServices,IEncryptionService encryptionService, IJwtService jwtService)
 		{
 			_serverServices = serverServices;
 			_encryptionService = encryptionService;
+			_jwtService = jwtService;
 		}
 
 		public async Task HandleRequestAsync(HttpListenerContext context)
@@ -41,7 +44,7 @@ namespace Chat_Server.Commands
 				return;
 			}
 
-			var token = GenerateTokenHelper.GetToken(checkUser,SecretKey);
+			var token = _jwtService.GenerateToken(checkUser);
 			await context.WriteResponseAsync(200, token);
 		}
 	}

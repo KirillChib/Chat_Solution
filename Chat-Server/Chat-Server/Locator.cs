@@ -1,6 +1,7 @@
 ﻿using Chat_Server.Commands;
 using Chat_Server.Services;
 using Chat_Server.Services.Encryption;
+using Chat_Server.Services.JWT;
 using Grace.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -36,11 +37,18 @@ namespace Chat_Server
 			RegisterSingleton<Iserver, Server>(registration);
 			RegisterSingleton<IServerServices,ServerServices>(registration);
 			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
+			RegisterSingleton<IJwtService>(registration,
+			() => new JWTService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom
 		{
 			registrationBlock.Export<TTo>().As<TFrom>().Lifestyle.Singleton();
+		}
+
+		private static void RegisterSingleton<TFrom>(IExportRegistrationBlock registrationBlock, Func<TFrom> create)
+		{
+			registrationBlock.ExportFactory(create).As<TFrom>().Lifestyle.Singleton();
 		}
 
 		public object GetService(Type serviceType)
