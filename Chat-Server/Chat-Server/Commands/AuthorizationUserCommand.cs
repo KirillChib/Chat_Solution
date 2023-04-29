@@ -2,6 +2,7 @@
 using Chat_Server.Helpers;
 using Chat_Server.Request;
 using Chat_Server.Services;
+using Chat_Server.Services.Encryption;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,10 +15,12 @@ namespace Chat_Server.Commands
 		public string SecretKey { get; set; } = "TW9zaGVFcmV6UHJpdmF0ZUtleQ==";
 		public HttpMethod Method => HttpMethod.Post;
 		private IServerServices _serverServices;
+		private IEncryptionService _encryptionService;
 
-		public AuthorizationUserCommand(IServerServices serverServices)
+		public AuthorizationUserCommand(IServerServices serverServices,IEncryptionService encryptionService)
 		{
-			this._serverServices = serverServices;
+			_serverServices = serverServices;
+			_encryptionService = encryptionService;
 		}
 
 		public async Task HandleRequestAsync(HttpListenerContext context)
@@ -29,7 +32,9 @@ namespace Chat_Server.Commands
 				return;
 			}
 
-			var checkUser = await _serverServices.AuthorizationUserAsync(user.Login, user.Password).ConfigureAwait(false);
+			var hash = _encryptionService.PasswordToHash(user.Password);
+
+			var checkUser = await _serverServices.AuthorizationUserAsync(user.Login,hash).ConfigureAwait(false);
 			if(checkUser is null)
 			{
 				await context.WriteResponseAsync(401, "Invalid username or password").ConfigureAwait(false);

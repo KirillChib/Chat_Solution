@@ -9,7 +9,7 @@ namespace Chat_Server.Services
 {
 	public interface  IServerServices
 	{
-		 Task<bool> CreateUserAsync(string log,string pass,string name);
-		Task<User> AuthorizationUserAsync(string log,string pass);
+		 Task<bool> CreateUserAsync(User user);
+		Task<User> AuthorizationUserAsync(string log, byte[] hash);
 	}
 }

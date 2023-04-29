@@ -1,5 +1,6 @@
 ﻿using Chat_Server.Commands;
 using Chat_Server.Services;
+using Chat_Server.Services.Encryption;
 using Grace.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace Chat_Server
 
 			RegisterSingleton<Iserver, Server>(registration);
 			RegisterSingleton<IServerServices,ServerServices>(registration);
+			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom

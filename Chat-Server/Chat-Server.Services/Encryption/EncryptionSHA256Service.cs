@@ -5,13 +5,13 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chat_Server.Helpers
+namespace Chat_Server.Services.Encryption
 {
-	public static class PasswordEncryptionHelper
+	public class EncryptionSHA256Service : IEncryptionService
 	{
-		public static byte[] ToHash(string pass)
+		public byte[] PasswordToHash(string pass)
 		{
-			using(var mySha = SHA256.Create())
+			using (var mySha = SHA256.Create())
 			{
 				byte[] inputBytes = Encoding.UTF8.GetBytes(pass);
 				byte[] hashBytes = mySha.ComputeHash(inputBytes);
