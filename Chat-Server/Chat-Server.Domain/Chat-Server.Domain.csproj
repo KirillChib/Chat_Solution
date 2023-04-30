@@ -51,7 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Channel.cs" />
+    <Compile Include="Entities\ChannelMessage.cs" />
+    <Compile Include="Entities\ChannelUser.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
