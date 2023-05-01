@@ -138,6 +138,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Extensions\HTTPListenerContextExtensions.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
+    <Compile Include="Helpers\SaveFileHelper.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Request\AuthorizationUser.cs" />
