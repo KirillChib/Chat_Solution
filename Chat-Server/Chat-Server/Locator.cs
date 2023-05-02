@@ -25,7 +25,7 @@ namespace Chat_Server
 		{
 			RegisterSingleton<ICommand, CreateUserCommand>(registration);
 			RegisterSingleton<ICommand, AuthorizationUserCommand>(registration);
-			//RegisterSingleton<ICommand, AddPublicMessageCommand>(registration);
+			RegisterSingleton<ICommand, AddUserMessageCommand>(registration);
 			//RegisterSingleton<ICommand, CreateUserCommand>(registration);
 			//RegisterSingleton<ICommand, ExitCommand>(registration);
 			//RegisterSingleton<ICommand, GetFriendsListCommand>(registration);

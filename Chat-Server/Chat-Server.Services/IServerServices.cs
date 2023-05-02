@@ -11,5 +11,6 @@ namespace Chat_Server.Services
 	{
 		 Task<bool> CreateUserAsync(User user);
 		Task<User> AuthorizationUserAsync(string log, byte[] hash);
+		Task AddUserMessageAsync(UserMessage userMessage);
 	}
 }

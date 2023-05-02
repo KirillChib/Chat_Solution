@@ -9,6 +9,12 @@ namespace Chat_Server.Services
 	{
 		private ChatDBContext dBContext = new ChatDBContext();
 
+		public async Task AddUserMessageAsync(UserMessage userMessage)
+		{
+			dBContext.UserMessages.Add(userMessage);
+			await dBContext.SaveChangesAsync().ConfigureAwait(false);
+		}
+
 		public async Task<User> AuthorizationUserAsync(string log, byte[] hash)
 		{
 			var user = await Task.Run(() => dBContext.Users.FirstOrDefault(u => u.Login == log));
@@ -30,8 +36,10 @@ namespace Chat_Server.Services
 			}
 
 			dBContext.Users.Add(user);
-			await dBContext.SaveChangesAsync();
+			await dBContext.SaveChangesAsync().ConfigureAwait(false);
 			return true;
 		}
+
+		
 	}
 }

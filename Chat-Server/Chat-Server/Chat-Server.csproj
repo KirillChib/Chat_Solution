@@ -133,15 +133,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AddUserMessageCommand.cs" />
+    <Compile Include="Commands\AuthorizationCommand.cs" />
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="ConfigurationsFiles.cs" />
     <Compile Include="Extensions\HTTPListenerContextExtensions.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
     <Compile Include="Helpers\SaveFileHelper.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Request\AuthorizationUser.cs" />
+    <Compile Include="Request\MessageToUser.cs" />
     <Compile Include="Request\RegistrationsUser.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
