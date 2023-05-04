@@ -14,6 +14,8 @@ namespace Chat_Server.Commands
 	{
 		public string Path => @"/users";
 		public HttpMethod Method => HttpMethod.Post;
+
+		// todo(v): добавить readonly
 		private IServerServices _serverServices;
 		private IEncryptionService _encryptionService;
 

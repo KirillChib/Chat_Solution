@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Services.JWT
 {
+	// todo(v): переименуй
 	public class CheckJWTResult
 	{
 		public int UserId { get; set; }

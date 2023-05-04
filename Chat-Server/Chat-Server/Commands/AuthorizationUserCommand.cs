@@ -13,8 +13,11 @@ namespace Chat_Server.Commands
 	public class AuthorizationUserCommand : ICommand
 	{
 		public string Path => @"/login";
+		// todo(v): удалить
 		public string SecretKey { get; set; } = "TW9zaGVFcmV6UHJpdmF0ZUtleQ==";
 		public HttpMethod Method => HttpMethod.Post;
+
+		// todo(v): добавить readonly
 		private IServerServices _serverServices;
 		private IEncryptionService _encryptionService;
 		private IJwtService _jwtService;

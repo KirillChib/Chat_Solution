@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Chat_Client.Api
 {
+	// todo(v): в отдельную папку
 	public class UserApi : ApiBase,IUserApi
 	{
 		public UserApi(string baseUri) : base(baseUri)

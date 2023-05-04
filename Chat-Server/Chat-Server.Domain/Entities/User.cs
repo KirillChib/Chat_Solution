@@ -11,6 +11,7 @@ namespace Chat_Server.Domain.Entities
 		public int Id { get; set; }
 		public string Login { get; set; }
 		public string Name { set; get; }
+		// todo(v): может быть хранить в base64?
 		public byte[] PasswordHash { get; set; }
 
 		public ICollection<UserMessage> UserMessagesFrom { get; set; }
