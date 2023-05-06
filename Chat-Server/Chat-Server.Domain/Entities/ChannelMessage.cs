@@ -12,8 +12,7 @@ namespace Chat_Server.Domain.Entities
 		public int UserFromId { get; set; }
 		public int ChannelId { get; set; }
 		public string Message { get; set; }
-		// todo(v): убрать = false;
-		public bool HasFile { get; set; } = false;
+		public bool HasFile { get; set; } 
 		public string FilePath { get; set; }
 		public DateTime CreatedAt { get; set; }
 

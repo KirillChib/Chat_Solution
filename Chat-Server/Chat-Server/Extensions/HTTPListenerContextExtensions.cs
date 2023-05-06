@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Extensions
 {
-	// todo(v): HTTP в нижний регистр
-	public static class HTTPListenerContextExtensions
+	
+	public static class HttpListenerContextExtensions
 	{
 		public static async Task<string> GetRequestBodyAsync(this HttpListenerContext context, Encoding encoding = null)
 		{
-			// todo(v): используй новый синтаксис using
-			using (var streamReader = new StreamReader(context.Request.InputStream, encoding ?? Encoding.UTF8))
+			
+			using var streamReader = new StreamReader(context.Request.InputStream, encoding ?? Encoding.UTF8);
 				return await streamReader.ReadToEndAsync().ConfigureAwait(false);
 		}
 

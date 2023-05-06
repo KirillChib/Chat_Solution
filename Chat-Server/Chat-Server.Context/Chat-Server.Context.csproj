@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatContext.cs" />
+    <Compile Include="ChatDbContext.cs" />
     <Compile Include="Migrations\202304221226307_InitialCreate.cs" />
     <Compile Include="Migrations\202304221226307_InitialCreate.Designer.cs">
       <DependentUpon>202304221226307_InitialCreate.cs</DependentUpon>
@@ -79,6 +79,10 @@
     <Compile Include="Migrations\202305021641324_change-datetime.cs" />
     <Compile Include="Migrations\202305021641324_change-datetime.designer.cs">
       <DependentUpon>202305021641324_change-datetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305061311108_change.cs" />
+    <Compile Include="Migrations\202305061311108_change.designer.cs">
+      <DependentUpon>202305061311108_change.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305021641324_change-datetime.resx">
       <DependentUpon>202305021641324_change-datetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305061311108_change.resx">
+      <DependentUpon>202305061311108_change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

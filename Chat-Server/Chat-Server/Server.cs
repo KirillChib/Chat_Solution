@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace Chat_Server
 {
-	public class Server : Iserver
+	public class Server : IServer
 	{
-		private readonly ICommand[] _commands;
+		private readonly ICommands[] _commands;
 		private readonly object _lockObject = new object();
 		private HttpListener _listener;
 
-		public Server(ICommand[] commands)
+		public Server(ICommands[] commands)
 		{
 			_commands = commands;
 		}

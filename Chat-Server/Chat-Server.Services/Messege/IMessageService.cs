@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Chat_Server.Domain.Entities;
 
-namespace Chat_Server.Services.MessegeService
+namespace Chat_Server.Services.Messege
 {
 	public interface IMessageService
 	{

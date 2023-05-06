@@ -3,10 +3,11 @@ using Chat_Server.Services;
 using Chat_Server.Services.Encryption;
 using Chat_Server.Services.JWT;
 using Chat_Server.Services.Messege;
-using Chat_Server.Services.MessegeService;
+using Chat_Server.Services.Users;
 using Grace.DependencyInjection;
 using System;
 using System.Collections.Generic;
+
 
 namespace Chat_Server
 {
@@ -25,27 +26,23 @@ namespace Chat_Server
 
 		private static void RegisterDependencies(IExportRegistrationBlock registration)
 		{
-			RegisterSingleton<ICommand, CreateUserCommand>(registration);
-			RegisterSingleton<ICommand, AuthorizationUserCommand>(registration);
-			RegisterSingleton<ICommand, AddUserMessageCommand>(registration);
-			RegisterSingleton<ICommand, GetUserMessagesCommand>(registration);
-			RegisterSingleton<ICommand, GetNewUserMessagesCommand>(registration);
+			RegisterSingleton<ICommands, CreateUserCommand>(registration);
+			RegisterSingleton<ICommands, AuthorizationUserCommand>(registration);
+			RegisterSingleton<ICommands, AddUserMessageCommand>(registration);
+			RegisterSingleton<ICommands, GetUserMessagesCommand>(registration);
+			RegisterSingleton<ICommands, GetNewUserMessagesCommand>(registration);
 			//RegisterSingleton<ICommand, GetFriendsListCommand>(registration);
 			//RegisterSingleton<ICommand, GetPrivateChatCommand>(registration);
 			//RegisterSingleton<ICommand, GetPublicChatCommand>(registration);
 			//RegisterSingleton<ICommand, GetUsersOnLineCommand>(registration);
 			//RegisterSingleton<ICommand, LogInCommand>(registration);
 
-			RegisterSingleton<Iserver, Server>(registration);
+			RegisterSingleton<IServer, Server>(registration);
 			RegisterSingleton<IUserServices, UserServices>(registration);
 			RegisterSingleton<IMessageService, MessageService>(registration);
 			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
 			RegisterSingleton<IJwtService>(registration,
-<<<<<<< .mine
-			() => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
-=======
 				() => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
->>>>>>> .theirs
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom

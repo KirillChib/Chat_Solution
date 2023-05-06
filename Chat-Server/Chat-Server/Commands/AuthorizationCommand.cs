@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Commands
 {
-	public abstract class AuthorizationCommand : ICommand
+	public abstract class AuthorizationCommand : ICommands
 	{
 		private const string AuthorizationHeaderKey = "Authorization";
 
@@ -31,6 +31,6 @@ namespace Chat_Server.Commands
 			await HandleRequestInternalAsync(context,checkTokenResult).ConfigureAwait(false);
 		}
 
-		protected abstract Task HandleRequestInternalAsync(HttpListenerContext context,CheckJWTResult result);
+		protected abstract Task HandleRequestInternalAsync(HttpListenerContext context,CheckJwtResult result);
 	}
 }

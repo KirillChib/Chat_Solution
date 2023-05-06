@@ -4,24 +4,24 @@ using Chat_Server.Request;
 using Chat_Server.Services;
 using Chat_Server.Services.Encryption;
 using Chat_Server.Services.JWT;
+using Chat_Server.Services.Users;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Chat_Server.Commands
 {
-	public class AuthorizationUserCommand : ICommand
+	public class AuthorizationUserCommand : ICommands
 	{
 		public string Path => @"/login";
-		public string SecretKey { get; set; } = "TW9zaGVFcmV6UHJpdmF0ZUtleQ==";
 		public HttpMethod Method => HttpMethod.Post;
-		private IUserServices _serverServices;
+		private IUserServices _userServices;
 		private IEncryptionService _encryptionService;
 		private IJwtService _jwtService;
 
-		public AuthorizationUserCommand(IUserServices serverServices,IEncryptionService encryptionService, IJwtService jwtService)
+		public AuthorizationUserCommand(IUserServices userServices,IEncryptionService encryptionService, IJwtService jwtService)
 		{
-			_serverServices = serverServices;
+			_userServices = userServices;
 			_encryptionService = encryptionService;
 			_jwtService = jwtService;
 		}
@@ -37,7 +37,7 @@ namespace Chat_Server.Commands
 
 			var hash = _encryptionService.PasswordToHash(user.Password);
 
-			var checkUser = await _serverServices.AuthorizationUserAsync(user.Login,hash).ConfigureAwait(false);
+			var checkUser = await _userServices.AuthorizationUserAsync(user.Login,hash).ConfigureAwait(false);
 			if(checkUser is null)
 			{
 				await context.WriteResponseAsync(401, "Invalid username or password").ConfigureAwait(false);

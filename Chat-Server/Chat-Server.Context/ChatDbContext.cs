@@ -3,14 +3,14 @@ using System.Data.Entity;
 
 namespace Chat_Server.Context
 {
-		public class ChatContext : DbContext	{
+		public class ChatDbContext : DbContext	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Channel> Channels { get; set; }
 		public DbSet<UserMessage> UserMessages { get; set; }
 		public DbSet<ChannelMessage> ChannelMessages { get; set; }
 		public DbSet<ChannelUser> ChannelsUsers { get; set; }
 
-		public ChatContext() : base("DbConnection")
+		public ChatDbContext() : base("DbConnection")
 		{
 		}
 

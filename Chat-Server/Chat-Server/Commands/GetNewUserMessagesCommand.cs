@@ -2,7 +2,7 @@
 using Chat_Server.Helpers;
 using Chat_Server.Response;
 using Chat_Server.Services.JWT;
-using Chat_Server.Services.MessegeService;
+using Chat_Server.Services.Messege;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -27,7 +27,7 @@ namespace Chat_Server.Commands
 			_messageService = messageService;
 		}
 
-		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJWTResult result)
+		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result)
 		{
 			var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
 			var id = int.Parse(match.Groups[IdKey].Value);

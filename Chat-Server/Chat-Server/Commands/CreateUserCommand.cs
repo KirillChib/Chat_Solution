@@ -4,22 +4,23 @@ using Chat_Server.Helpers;
 using Chat_Server.Request;
 using Chat_Server.Services;
 using Chat_Server.Services.Encryption;
+using Chat_Server.Services.Users;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Chat_Server.Commands
 {
-	public class CreateUserCommand : ICommand
+	public class CreateUserCommand : ICommands
 	{
 		public string Path => @"/users";
 		public HttpMethod Method => HttpMethod.Post;
-		private IUserServices _serverServices;
+		private IUserServices _userServices;
 		private IEncryptionService _encryptionService;
 
-		public CreateUserCommand(IUserServices serverServices, IEncryptionService encryptionService)
+		public CreateUserCommand(IUserServices userServices, IEncryptionService encryptionService)
 		{
-			_serverServices = serverServices;
+			_userServices = userServices;
 			_encryptionService = encryptionService;
 		}
 
@@ -39,7 +40,7 @@ namespace Chat_Server.Commands
 				Name = registrationUser.Name
 			};
 
-			var tryCreated = await _serverServices.CreateUserAsync(user).ConfigureAwait(false);
+			var tryCreated = await _userServices.CreateUserAsync(user).ConfigureAwait(false);
 
 			if (!tryCreated)
 			{

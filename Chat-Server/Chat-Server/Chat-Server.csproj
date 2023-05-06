@@ -137,13 +137,14 @@
     <Compile Include="Commands\AuthorizationCommand.cs" />
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
-<Compile Include="Commands\GetNewUserMessagesCommand.cs" />
+    <Compile Include="Commands\GetNewUserMessagesCommand.cs" />
     <Compile Include="Commands\GetUserMessagesCommand.cs" />
-    <Compile Include="Commands\ICommand.cs" />    <Compile Include="ConfigurationsFiles.cs" />
-    <Compile Include="Extensions\HTTPListenerContextExtensions.cs" />
+    <Compile Include="ConfigurationsFiles.cs" />
+    <Compile Include="Extensions\HttpListenerContextExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="ICommands.cs" />
     <Compile Include="IServer.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Request\AuthorizationUser.cs" />

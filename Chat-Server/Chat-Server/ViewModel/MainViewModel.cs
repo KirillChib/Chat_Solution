@@ -14,9 +14,9 @@ namespace Chat_Server.ViewModel
 			CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
 		}
 
-		private Iserver CreateServer()
+		private IServer CreateServer()
 		{
-			return Locator.Current.Locate<Iserver>();
+			return Locator.Current.Locate<IServer>();
 		}
 	}
 }

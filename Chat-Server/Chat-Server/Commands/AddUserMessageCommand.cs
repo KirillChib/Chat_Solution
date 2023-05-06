@@ -4,10 +4,11 @@ using Chat_Server.Helpers;
 using Chat_Server.Request;
 using Chat_Server.Services;
 using Chat_Server.Services.JWT;
+using Chat_Server.Services.Messege;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Chat_Server.Services.MessegeService;
+
 
 namespace Chat_Server.Commands
 {
@@ -23,7 +24,7 @@ namespace Chat_Server.Commands
 			_messageServices = messageServices;
 		}
 
-		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJWTResult result)
+		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result)
 		{
 			var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
 			var message = JsonSerializeHelper.Deserialize<MessageToUser>(requestBody);
