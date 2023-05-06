@@ -7,6 +7,7 @@ using Chat_Server.Services.JWT;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Chat_Server.Services.MessegeService;
 
 namespace Chat_Server.Commands
 {
@@ -15,11 +16,11 @@ namespace Chat_Server.Commands
 		public override string Path => @"/messages";
 		public override HttpMethod Method => HttpMethod.Post;
 
-		private IServerServices _serverServices;
+		private IMessageService _messageServices;	
 
-		public AddUserMessageCommand(IJwtService jwtService, IServerServices serverServices) : base(jwtService)
+		public AddUserMessageCommand(IJwtService jwtService, IMessageService messageServices) : base(jwtService)
 		{
-			_serverServices = serverServices;
+			_messageServices = messageServices;
 		}
 
 		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJWTResult result)
@@ -42,10 +43,10 @@ namespace Chat_Server.Commands
 			else
 			{
 				userMessage.HasFile = true;
-				userMessage.FilePath = SaveFileHelper.SaveFile(ConfigurationsFiles.Path, message.FileName, message.File);
+				userMessage.FilePath = FileHelper.SaveFile(ConfigurationsFiles.Path, message.FileName, message.File);
 			}
 
-			await _serverServices.AddUserMessageAsync(userMessage).ConfigureAwait(false);
+			await _messageServices.AddUserMessageAsync(userMessage).ConfigureAwait(false);
 			await context.WriteResponseAsync(200, "Ok");
 		}
 	}

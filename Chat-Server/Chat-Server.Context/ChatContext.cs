@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace Chat_Server.Context
 {
-	public class ChatDBContext : DbContext
+	public class ChatContext : DbContext
 	{
 		public DbSet<User> Users { get; set; }
 		public DbSet<Channel> Channels { get; set; }
@@ -11,7 +11,7 @@ namespace Chat_Server.Context
 		public DbSet<ChannelMessage> ChannelMessages { get; set; }
 		public DbSet<ChannelUser> ChannelsUsers { get; set; }
 
-		public ChatDBContext() : base("DbConnection")
+		public ChatContext() : base("DbConnection")
 		{
 		}
 
@@ -37,7 +37,7 @@ namespace Chat_Server.Context
 																				.HasForeignKey(um => um.UserToId)
 																				.WillCascadeOnDelete(false);
 			modelBuilder.Entity<UserMessage>().Property(um => um.CreatedAt)
-																				.HasColumnType("date");
+																				.HasColumnType("datetime");
 
 			modelBuilder.Entity<ChannelMessage>().HasRequired(cm => cm.UserFrom)
 																					  .WithMany(u => u.ChannelMessages)
@@ -46,7 +46,7 @@ namespace Chat_Server.Context
 																					  .WithMany(c => c.ChannelMessages)
 																					  .HasForeignKey(cm => cm.ChannelId);
 			modelBuilder.Entity<ChannelMessage>().Property(cm => cm.CreatedAt)
-																					   .HasColumnType("date");
+																					   .HasColumnType("datetime");
 
 			modelBuilder.Entity<ChannelUser>().HasKey(cu => new { cu.ChannelId, cu.UserId });
 			modelBuilder.Entity<ChannelUser>().HasRequired(cu => cu.Channel)

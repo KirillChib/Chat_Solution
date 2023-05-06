@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -83,12 +85,14 @@
   <ItemGroup>
     <Compile Include="Encryption\EncryptionSHA256Service.cs" />
     <Compile Include="Encryption\IEncryptionService.cs" />
-    <Compile Include="IServerServices.cs" />
+    <Compile Include="Messege\IMessageService.cs" />
+    <Compile Include="Messege\MessageService.cs" />
+    <Compile Include="User\IUserServices.cs" />
     <Compile Include="JWT\CheckJWTResult.cs" />
     <Compile Include="JWT\IJwtService.cs" />
-    <Compile Include="JWT\JWTService.cs" />
+    <Compile Include="JWT\JwtService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerServices.cs" />
+    <Compile Include="User\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chat-Server.Common\Chat-Server.Common.csproj">

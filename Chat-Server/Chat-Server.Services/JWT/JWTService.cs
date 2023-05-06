@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Chat_Server.Services.JWT
 {
-	public class JWTService : IJwtService
+	public class JwtService : IJwtService
 	{
 		private const string BearerPrefix = "Bearer ";
 
@@ -18,7 +18,7 @@ namespace Chat_Server.Services.JWT
 		private readonly SecurityKey _securityKey;
 		private readonly SigningCredentials _signingCredentials;
 
-		public JWTService(string issuer, string secretKey)
+		public JwtService(string issuer, string secretKey)
 		{
 			_issuer = issuer;
 			_securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));

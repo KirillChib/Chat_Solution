@@ -1,20 +1,16 @@
 ﻿using Chat_Server.Context;
 using Chat_Server.Domain.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Chat_Server.Services
 {
-	public class ServerServices : IServerServices
+	public class UserServices : IUserServices
 	{
-		private ChatDBContext dBContext = new ChatDBContext();
+		private ChatContext dBContext = new ChatContext();
 
-		public async Task AddUserMessageAsync(UserMessage userMessage)
-		{
-			dBContext.UserMessages.Add(userMessage);
-			await dBContext.SaveChangesAsync().ConfigureAwait(false);
-		}
-
+	
 		public async Task<User> AuthorizationUserAsync(string log, byte[] hash)
 		{
 			var user = await Task.Run(() => dBContext.Users.FirstOrDefault(u => u.Login == log));

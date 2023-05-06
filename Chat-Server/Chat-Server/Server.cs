@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Chat_Server
@@ -50,11 +51,11 @@ namespace Chat_Server
 					Console.WriteLine($"Request {context.Request.HttpMethod} {context.Request.Url}");
 
 					var method = context.Request.HttpMethod;
-					var path = context.Request.Url.AbsolutePath;
+					var path = context.Request.Url.AbsolutePath.TrimEnd('/');
 
-					var command = _commands.SingleOrDefault(c =>
-						c.Method.ToString() == method &&
-						c.Path == path);
+					var command = _commands.SingleOrDefault(command =>
+						command.Method.ToString() == method &&
+						Regex.IsMatch(path, $"^{command.Path}$", RegexOptions.IgnoreCase));
 
 					if (command == null)
 					{
