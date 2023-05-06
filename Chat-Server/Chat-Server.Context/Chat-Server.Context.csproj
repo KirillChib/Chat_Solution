@@ -72,6 +72,14 @@
     <Compile Include="Migrations\202304301635002_Add_Channel_and_Messages.designer.cs">
       <DependentUpon>202304301635002_Add_Channel_and_Messages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305021635503_Change-date-on-smalldatetime.cs" />
+    <Compile Include="Migrations\202305021635503_Change-date-on-smalldatetime.designer.cs">
+      <DependentUpon>202305021635503_Change-date-on-smalldatetime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305021641324_change-datetime.cs" />
+    <Compile Include="Migrations\202305021641324_change-datetime.designer.cs">
+      <DependentUpon>202305021641324_change-datetime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +108,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304301635002_Add_Channel_and_Messages.resx">
       <DependentUpon>202304301635002_Add_Channel_and_Messages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305021635503_Change-date-on-smalldatetime.resx">
+      <DependentUpon>202305021635503_Change-date-on-smalldatetime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305021641324_change-datetime.resx">
+      <DependentUpon>202305021641324_change-datetime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
