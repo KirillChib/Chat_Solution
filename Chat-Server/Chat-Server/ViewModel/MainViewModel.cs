@@ -10,7 +10,8 @@ namespace Chat_Server.ViewModel
 
 		public MainViewModel()
 		{
-			 CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
+			// todo(v): этот код стоит вызывать либо при событии Loaded, либо в App.cs
+			CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
 		}
 
 		private Iserver CreateServer()

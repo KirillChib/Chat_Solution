@@ -9,6 +9,7 @@ namespace Chat_Server.Helpers
 {
 	public static class JsonSerializeHelper
 	{
+		// todo(v): используй новый вид инициализатора
 		private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings()
 		{
 			Formatting = Formatting.Indented,

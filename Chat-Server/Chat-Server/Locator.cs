@@ -35,10 +35,10 @@ namespace Chat_Server
 			//RegisterSingleton<ICommand, LogInCommand>(registration);
 
 			RegisterSingleton<Iserver, Server>(registration);
-			RegisterSingleton<IServerServices,ServerServices>(registration);
+			RegisterSingleton<IUserServices,UserServices>(registration);
 			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
 			RegisterSingleton<IJwtService>(registration,
-			() => new JWTService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
+			() => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom

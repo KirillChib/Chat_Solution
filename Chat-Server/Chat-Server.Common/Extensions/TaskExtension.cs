@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// todo(v): используй новый синтаксис namespace
 namespace Chat_Server.Extensions
 {
 	public static class TaskExtension

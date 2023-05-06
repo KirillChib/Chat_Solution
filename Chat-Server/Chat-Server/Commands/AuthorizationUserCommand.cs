@@ -15,11 +15,11 @@ namespace Chat_Server.Commands
 		public string Path => @"/login";
 		public string SecretKey { get; set; } = "TW9zaGVFcmV6UHJpdmF0ZUtleQ==";
 		public HttpMethod Method => HttpMethod.Post;
-		private IServerServices _serverServices;
+		private IUserServices _serverServices;
 		private IEncryptionService _encryptionService;
 		private IJwtService _jwtService;
 
-		public AuthorizationUserCommand(IServerServices serverServices,IEncryptionService encryptionService, IJwtService jwtService)
+		public AuthorizationUserCommand(IUserServices serverServices,IEncryptionService encryptionService, IJwtService jwtService)
 		{
 			_serverServices = serverServices;
 			_encryptionService = encryptionService;

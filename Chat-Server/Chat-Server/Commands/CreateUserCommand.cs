@@ -14,10 +14,10 @@ namespace Chat_Server.Commands
 	{
 		public string Path => @"/users";
 		public HttpMethod Method => HttpMethod.Post;
-		private IServerServices _serverServices;
+		private IUserServices _serverServices;
 		private IEncryptionService _encryptionService;
 
-		public CreateUserCommand(IServerServices serverServices, IEncryptionService encryptionService)
+		public CreateUserCommand(IUserServices serverServices, IEncryptionService encryptionService)
 		{
 			_serverServices = serverServices;
 			_encryptionService = encryptionService;
