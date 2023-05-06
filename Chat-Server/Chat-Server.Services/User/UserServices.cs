@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Services
 {
-	public class ServerServices : IServerServices
+	public class UserServices : IUserServices
 	{
-		private ChatDBContext dBContext = new ChatDBContext();
+		private ChatContext dBContext = new ChatContext();
 
 		public async Task<User> AuthorizationUserAsync(string log, byte[] hash)
 		{

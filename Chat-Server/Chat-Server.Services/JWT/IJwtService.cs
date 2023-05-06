@@ -10,6 +10,6 @@ namespace Chat_Server.Services.JWT
 	public interface IJwtService
 	{
 		string GenerateToken(User user);
-		CheckJWTResult CheckToken(string token);
+		CheckJwtResult CheckToken(string token);
 	}
 }

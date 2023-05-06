@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Chat_Server.Services.JWT
 {
-	public class JWTService : IJwtService
+	public class JwtService : IJwtService
 	{
 		private const string BearerPrefix = "Bearer ";
 
@@ -18,7 +18,7 @@ namespace Chat_Server.Services.JWT
 		private readonly SecurityKey _securityKey;
 		private readonly SigningCredentials _signingCredentials;
 
-		public JWTService(string issuer, string secretKey)
+		public JwtService(string issuer, string secretKey)
 		{
 			_issuer = issuer;
 			_securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
@@ -36,7 +36,7 @@ namespace Chat_Server.Services.JWT
 			return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 		}
 
-		public CheckJWTResult CheckToken(string token)
+		public CheckJwtResult CheckToken(string token)
 		{
 			if (token?.StartsWith(BearerPrefix, StringComparison.OrdinalIgnoreCase) == true)
 				token = token.Substring(BearerPrefix.Length);
@@ -56,11 +56,11 @@ namespace Chat_Server.Services.JWT
 				var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(token, parameters, out var validatedToken);
 				var userId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == IdClaimKey)?.Value;
 
-				return new CheckJWTResult { UserId = int.Parse(userId)};
+				return new CheckJwtResult { UserId = int.Parse(userId)};
 			}
 			catch
 			{
-				return new CheckJWTResult { IsFaulted = true };
+				return new CheckJwtResult { IsFaulted = true };
 			}
 		}
 	}

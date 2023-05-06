@@ -135,7 +135,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
-    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="ICommand.cs" />
     <Compile Include="Extensions\HTTPListenerContextExtensions.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
     <Compile Include="IServer.cs" />

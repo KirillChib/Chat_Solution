@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Services.JWT
 {
-	public class CheckJWTResult
+	public class CheckJwtResult
 	{
 		public int UserId { get; set; }
 		public bool IsFaulted { get; set; }

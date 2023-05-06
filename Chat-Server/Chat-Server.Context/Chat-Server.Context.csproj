@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatDBContext.cs" />
+    <Compile Include="ChatContext.cs" />
     <Compile Include="Migrations\202304221226307_InitialCreate.cs" />
     <Compile Include="Migrations\202304221226307_InitialCreate.Designer.cs">
       <DependentUpon>202304221226307_InitialCreate.cs</DependentUpon>

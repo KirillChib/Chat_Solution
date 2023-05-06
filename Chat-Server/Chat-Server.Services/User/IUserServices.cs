@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chat_Server.Services
 {
-	public interface  IServerServices
+	public interface IUserServices
 	{
 		 Task<bool> CreateUserAsync(User user);
 		Task<User> AuthorizationUserAsync(string log, byte[] hash);
