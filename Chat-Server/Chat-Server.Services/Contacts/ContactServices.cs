@@ -27,6 +27,7 @@ public class ContactServices : IContactServices {
 
 	public async Task DeleteUserContactByIdAsync(UserContact contact) {
 		using var chatContext = new ChatDbContext();
+		chatContext.UsersContacts.Attach(contact);
 		chatContext.UsersContacts.Remove(contact);
 
 		await chatContext.SaveChangesAsync();
@@ -34,6 +35,6 @@ public class ContactServices : IContactServices {
 
 	public async Task<bool> ContactExist(UserContact contact) {
 		using var chatContext = new ChatDbContext();
-		return await chatContext.UsersContacts.AnyAsync(uc => uc.Equals(contact)).ConfigureAwait(false);
+		return await chatContext.UsersContacts.AnyAsync(uc => uc.UserId == contact.UserId && uc.ContactUserId == contact.ContactUserId).ConfigureAwait(false);
 	}
 }

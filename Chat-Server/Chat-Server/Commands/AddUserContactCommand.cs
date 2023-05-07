@@ -32,7 +32,8 @@ public class AddUserContactCommand : AuthorizationCommand {
 			ContactUserId = userContactId
 		};
 
-		if (await _contactServices.ContactExist(contact).ConfigureAwait(false)) {
+		if (await _contactServices.ContactExist(contact).ConfigureAwait(false))
+		{
 			await context.WriteResponseAsync(400, "В вашем списке уже есть этот контакт");
 			return;
 		}
