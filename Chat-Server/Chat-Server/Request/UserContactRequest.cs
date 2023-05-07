@@ -1,4 +1,4 @@
-﻿namespace Chat_Server.Request; 
+﻿namespace Chat_Server.Request;
 
 public class UserContactRequest {
 	public int UserId { get; set; }

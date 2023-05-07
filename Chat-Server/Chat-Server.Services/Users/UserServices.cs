@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Chat_Server.Context;
 using Chat_Server.Domain.Entities;
 
-namespace Chat_Server.Services.Users; 
+namespace Chat_Server.Services.Users;
 
 public class UserServices : IUserServices {
 	public async Task<User> AuthorizationUserAsync(string log, byte[] hash) {
