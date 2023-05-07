@@ -85,6 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contacts\ContactServices.cs" />
+    <Compile Include="Contacts\IContactServices.cs" />
     <Compile Include="Encryption\EncryptionSHA256Service.cs" />
     <Compile Include="Encryption\IEncryptionService.cs" />
     <Compile Include="Messege\IMessageService.cs" />

@@ -7,6 +7,7 @@ using Chat_Server.Services.Users;
 using Grace.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Chat_Server.Services.Contacts;
 
 
 namespace Chat_Server
@@ -30,15 +31,16 @@ namespace Chat_Server
 			RegisterSingleton<ICommands, AddUserMessageCommand>(registration);
 			RegisterSingleton<ICommands, GetUserMessagesCommand>(registration);
 			RegisterSingleton<ICommands, GetNewUserMessagesCommand>(registration);
-			//RegisterSingleton<ICommand, GetFriendsListCommand>(registration);
-			//RegisterSingleton<ICommand, GetPrivateChatCommand>(registration);
-			//RegisterSingleton<ICommand, GetPublicChatCommand>(registration);
-			//RegisterSingleton<ICommand, GetUsersOnLineCommand>(registration);
+			RegisterSingleton<ICommands, AddUserContactCommand>(registration);
+			RegisterSingleton<ICommands, GetUserContactsCommand>(registration);
+			RegisterSingleton<ICommands, DeleteContactCommand>(registration);
+			RegisterSingleton<ICommands, GetAllUsersCommand>(registration);
 			//RegisterSingleton<ICommand, LogInCommand>(registration);
 
 			RegisterSingleton<IServer, Server>(registration);
 			RegisterSingleton<IUserServices, UserServices>(registration);
 			RegisterSingleton<IMessageService, MessageService>(registration);
+			RegisterSingleton<IContactServices, ContactServices>(registration);
 			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
 			RegisterSingleton<IJwtService>(registration,
 				() => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
