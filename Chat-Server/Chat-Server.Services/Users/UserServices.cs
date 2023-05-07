@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Chat_Server.Context;
 using Chat_Server.Domain.Entities;
@@ -30,8 +32,10 @@ public class UserServices : IUserServices {
 
 	public async Task<bool> UserExist(string login, string name) {
 		using var dbContext = new ChatDbContext();
-		if (await Task.Run(() => dbContext.Users.Any(u => u.Login == login || u.Name == name)))
-			return true;
-		return false;
+		return await dbContext.Users.AnyAsync(u => u.Login == login || u.Name == name).ConfigureAwait(false);
+	}
+	public async Task<ICollection<User>> GetAllUsersAsync() {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.Users.ToListAsync().ConfigureAwait(false);
 	}
 }

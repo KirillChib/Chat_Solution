@@ -139,6 +139,7 @@
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
     <Compile Include="Commands\DeleteContactCommand.cs" />
+    <Compile Include="Commands\GetAllUsersCommand.cs" />
     <Compile Include="Commands\GetNewUserMessagesCommand.cs" />
     <Compile Include="Commands\GetUserContactsCommand.cs" />
     <Compile Include="Commands\GetUserMessagesCommand.cs" />
