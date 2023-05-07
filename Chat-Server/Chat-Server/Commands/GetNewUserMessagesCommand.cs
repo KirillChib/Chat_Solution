@@ -1,19 +1,17 @@
-﻿using Chat_Server.Extensions;
-using Chat_Server.Helpers;
-using Chat_Server.Response;
-using Chat_Server.Services.JWT;
-using Chat_Server.Services.Messege;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Chat_Server.Extensions;
+using Chat_Server.Helpers;
+using Chat_Server.Response;
+using Chat_Server.Services.JWT;
+using Chat_Server.Services.Messege;
 
-namespace Chat_Server.Commands
-{
-	public class GetNewUserMessagesCommand : AuthorizationCommand
-	{
+namespace Chat_Server.Commands {
+	public class GetNewUserMessagesCommand : AuthorizationCommand {
 		private const string IdKey = "Id";
 		private const string DateQueryKey = "Date";
 
@@ -22,13 +20,11 @@ namespace Chat_Server.Commands
 
 		private readonly IMessageService _messageService;
 
-		public GetNewUserMessagesCommand(IMessageService messageService, IJwtService jwtService) : base(jwtService)
-		{
+		public GetNewUserMessagesCommand(IMessageService messageService, IJwtService jwtService) : base(jwtService) {
 			_messageService = messageService;
 		}
 
-		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result)
-		{
+		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result) {
 			var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
 			var id = int.Parse(match.Groups[IdKey].Value);
 
@@ -39,12 +35,8 @@ namespace Chat_Server.Commands
 			var messages = await _messageService.GetNewUserMessagesByIdAsync(result.UserId, id, date);
 
 			if (messages.Count > 0)
-			{
 				foreach (var message in messages)
-				{
 					response.Add(message.ToResponseMessage());
-				}
-			}
 
 			await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
 		}

@@ -1,21 +1,19 @@
-﻿using Chat_Server.Domain.Entities;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using Chat_Server.Domain.Entities;
 
-namespace Chat_Server.Context
-{
-		public class ChatDbContext : DbContext	{
+namespace Chat_Server.Context {
+	public class ChatDbContext : DbContext {
 		public DbSet<User> Users { get; set; }
 		public DbSet<Channel> Channels { get; set; }
 		public DbSet<UserMessage> UserMessages { get; set; }
 		public DbSet<ChannelMessage> ChannelMessages { get; set; }
 		public DbSet<ChannelUser> ChannelsUsers { get; set; }
+		public DbSet<UserContact> UsersContacts { get; set; }
 
-		public ChatDbContext() : base("DbConnection")
-		{
+		public ChatDbContext() : base("DbConnection") {
 		}
 
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
-		{
+		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 			// todo(v): нужен ли IsUnicode?
 			modelBuilder.Entity<User>()
 				.Property(u => u.Login)
@@ -74,6 +72,21 @@ namespace Chat_Server.Context
 				.HasRequired(cu => cu.User)
 				.WithMany(u => u.ChannelsUser)
 				.HasForeignKey(cu => cu.UserId);
+
+			modelBuilder.Entity<UserContact>()
+				.HasKey(uc => new { uc.UserId, uc.ContactUserId });
+
+			modelBuilder.Entity<UserContact>()
+				.HasRequired(uc => uc.User)
+				.WithMany(u => u.UserContacts)
+				.HasForeignKey(uc => uc.UserId)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<UserContact>()
+				.HasRequired(uc => uc.ContactUser)
+				.WithMany(cu => cu.Contacts)
+				.HasForeignKey(c => c.ContactUserId)
+				.WillCascadeOnDelete(false);
 
 			base.OnModelCreating(modelBuilder);
 		}

@@ -24,8 +24,7 @@ namespace Chat_Server
 			_container.Configure(RegisterDependencies);
 		}
 
-		private static void RegisterDependencies(IExportRegistrationBlock registration)
-		{
+		private static void RegisterDependencies(IExportRegistrationBlock registration) {
 			RegisterSingleton<ICommands, CreateUserCommand>(registration);
 			RegisterSingleton<ICommands, AuthorizationUserCommand>(registration);
 			RegisterSingleton<ICommands, AddUserMessageCommand>(registration);

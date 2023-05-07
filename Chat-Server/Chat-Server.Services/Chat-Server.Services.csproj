@@ -90,7 +90,7 @@
     <Compile Include="Messege\IMessageService.cs" />
     <Compile Include="Messege\MessageService.cs" />
     <Compile Include="Users\IUserServices.cs" />
-    <Compile Include="JWT\CheckJWTResult.cs" />
+    <Compile Include="JWT\CheckJwtResult.cs" />
     <Compile Include="JWT\IJwtService.cs" />
     <Compile Include="JWT\JwtService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

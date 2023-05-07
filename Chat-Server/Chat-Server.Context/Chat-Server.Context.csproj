@@ -52,39 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatDbContext.cs" />
-    <Compile Include="Migrations\202304221226307_InitialCreate.cs" />
-    <Compile Include="Migrations\202304221226307_InitialCreate.Designer.cs">
-      <DependentUpon>202304221226307_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304230915539_Update_User.cs" />
-    <Compile Include="Migrations\202304230915539_Update_User.designer.cs">
-      <DependentUpon>202304230915539_Update_User.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304230934577_del_PasHash.cs" />
-    <Compile Include="Migrations\202304230934577_del_PasHash.designer.cs">
-      <DependentUpon>202304230934577_del_PasHash.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304230936593_Add_PassHash_User.cs" />
-    <Compile Include="Migrations\202304230936593_Add_PassHash_User.designer.cs">
-      <DependentUpon>202304230936593_Add_PassHash_User.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202304301635002_Add_Channel_and_Messages.cs" />
-    <Compile Include="Migrations\202304301635002_Add_Channel_and_Messages.designer.cs">
-      <DependentUpon>202304301635002_Add_Channel_and_Messages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305021635503_Change-date-on-smalldatetime.cs" />
-    <Compile Include="Migrations\202305021635503_Change-date-on-smalldatetime.designer.cs">
-      <DependentUpon>202305021635503_Change-date-on-smalldatetime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305021641324_change-datetime.cs" />
-    <Compile Include="Migrations\202305021641324_change-datetime.designer.cs">
-      <DependentUpon>202305021641324_change-datetime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202305061311108_change.cs" />
-    <Compile Include="Migrations\202305061311108_change.designer.cs">
-      <DependentUpon>202305061311108_change.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,32 +63,6 @@
       <Project>{3179321C-3FA4-4736-93E2-0DCDDBB19835}</Project>
       <Name>Chat-Server.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202304221226307_InitialCreate.resx">
-      <DependentUpon>202304221226307_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304230915539_Update_User.resx">
-      <DependentUpon>202304230915539_Update_User.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304230934577_del_PasHash.resx">
-      <DependentUpon>202304230934577_del_PasHash.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304230936593_Add_PassHash_User.resx">
-      <DependentUpon>202304230936593_Add_PassHash_User.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202304301635002_Add_Channel_and_Messages.resx">
-      <DependentUpon>202304301635002_Add_Channel_and_Messages.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305021635503_Change-date-on-smalldatetime.resx">
-      <DependentUpon>202305021635503_Change-date-on-smalldatetime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305021641324_change-datetime.resx">
-      <DependentUpon>202305021641324_change-datetime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202305061311108_change.resx">
-      <DependentUpon>202305061311108_change.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

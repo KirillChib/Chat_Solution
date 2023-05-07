@@ -1,10 +1,9 @@
 ﻿namespace Chat_Server.Domain.Entities;
 
-public class ChannelUser
-{
-	public int ChannelId { get; set; }
+public class UserContact {
 	public int UserId { get; set; }
+	public int ContactUserId { get; set; }
 
-	public Channel Channel { get; set; }
 	public User User { get; set; }
+	public User ContactUser { get; set; }
 }

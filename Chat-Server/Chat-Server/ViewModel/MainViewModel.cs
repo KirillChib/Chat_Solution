@@ -1,22 +1,20 @@
 using Chat_Server.Context;
 using Chat_Server.Domain.Entities;
+using Chat_Server.Services.Encryption;
 using GalaSoft.MvvmLight;
 
-namespace Chat_Server.ViewModel
-{
-	public class MainViewModel : ViewModelBase
-	{
-		private const string ServerUri = "http://127.0.0.1:8888/";
+namespace Chat_Server.ViewModel; 
 
-		public MainViewModel()
-		{
-			// todo(v): этот код стоит вызывать либо при событии Loaded, либо в App.cs
-			CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
-		}
+public class MainViewModel : ViewModelBase {
+	private const string ServerUri = "http://127.0.0.1:8888/";
 
-		private IServer CreateServer()
-		{
-			return Locator.Current.Locate<IServer>();
-		}
+	public MainViewModel() {
+
+		// todo(v): этот код стоит вызывать либо при событии Loaded, либо в App.cs
+		CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
+	}
+
+	private IServer CreateServer() {
+		return Locator.Current.Locate<IServer>();
 	}
 }
