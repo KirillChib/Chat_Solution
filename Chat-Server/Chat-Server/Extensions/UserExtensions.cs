@@ -20,5 +20,12 @@ namespace Chat_Server.Extensions {
 
 			return responseMessage;
 		}
+
+		public static UserContactResponse ToUserContactResponse(this User user) {
+			return new UserContactResponse {
+				UserId = user.Id,
+				UserName = user.Name
+			};
+		}
 	}
 }

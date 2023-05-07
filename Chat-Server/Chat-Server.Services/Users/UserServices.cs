@@ -14,6 +14,7 @@ public class UserServices : IUserServices {
 
 		if (user.PasswordHash.SequenceEqual(hash))
 			return user;
+
 		return null;
 	}
 
