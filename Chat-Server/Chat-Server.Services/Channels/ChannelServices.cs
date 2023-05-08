@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using System.Threading.Tasks;
 using Chat_Server.Context;
 using Chat_Server.Domain.Entities;
 
@@ -10,5 +11,9 @@ public class ChannelServices : IChannelServices {
 		chatContext.Channels.Add(channel);
 
 		await chatContext.SaveChangesAsync().ConfigureAwait(false);
+	}
+	public async Task<bool> ChannelExistAsync(string name) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.Channels.AnyAsync(c => c.Name == name).ConfigureAwait(false);
 	}
 }

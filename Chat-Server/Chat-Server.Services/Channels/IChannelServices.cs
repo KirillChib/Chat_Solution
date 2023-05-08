@@ -5,4 +5,5 @@ namespace Chat_Server.Services.Channels;
 
 public interface IChannelServices {
 	Task CreateChannelAsync(Channel channel);
+	Task<bool> ChannelExistAsync(string name);
 }
