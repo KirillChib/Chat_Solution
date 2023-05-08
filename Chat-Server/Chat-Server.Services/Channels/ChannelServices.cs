@@ -19,8 +19,12 @@ public class ChannelServices : IChannelServices {
 		using var chatContext = new ChatDbContext();
 		return await chatContext.Channels.AnyAsync(c => c.Name == name).ConfigureAwait(false);
 	}
-	public async Task<ICollection<Channel>> GetChannelByNameAsync(string name) {
+	public async Task<ICollection<Channel>> GetChannelsByNameAsync(string name) {
 		using var chatContext = new ChatDbContext();
 		return await chatContext.Channels.Where(c => c.Name.StartsWith(name, StringComparison.Ordinal)).ToListAsync().ConfigureAwait(false);
+	}
+	public async Task<ICollection<Channel>> GetChannelsByUserId(int userId) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.ChannelsUsers.Where(cu => cu.UserId == userId).Select(cu => cu.Channel).ToListAsync().ConfigureAwait(false);
 	}
 }
