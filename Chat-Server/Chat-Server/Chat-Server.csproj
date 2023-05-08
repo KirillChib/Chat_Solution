@@ -133,6 +133,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AddChannelMessageCommand.cs" />
     <Compile Include="Commands\AddUserContactCommand.cs" />
     <Compile Include="Commands\AddUserMessageCommand.cs" />
     <Compile Include="Commands\AuthorizationCommand.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Commands\GetUserMessagesCommand.cs" />
     <Compile Include="Commands\SubscribeToChannelCommand.cs" />
     <Compile Include="ConfigurationsFiles.cs" />
+    <Compile Include="Extensions\ChannelExtensions.cs" />
     <Compile Include="Extensions\ContactExtensions.cs" />
     <Compile Include="Extensions\HttpListenerContextExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
