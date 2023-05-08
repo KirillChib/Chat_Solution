@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Chat_Server.Domain.Entities;
 
@@ -8,6 +9,8 @@ public interface IChannelServices {
 	Task CreateChannelAsync(Channel channel);
 	Task<bool> ChannelExistAsync(string name);
 	Task<ICollection<Channel>> GetChannelsByNameAsync(string name);
-	Task<ICollection<Channel>> GetChannelsByUserId(int userId);
-
+	Task<ICollection<Channel>> GetChannelsByUserIdAsync(int userId);
+	Task AddChannelMessageAsync(ChannelMessage message);
+	Task<ICollection<ChannelMessage>> GetChannelMessagesByChannelIdAsync(int channelId);
+	Task<ICollection<ChannelMessage>> GetNewChannelMessagesAsync(int channelId, DateTime date);
 }

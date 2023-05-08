@@ -23,8 +23,28 @@ public class ChannelServices : IChannelServices {
 		using var chatContext = new ChatDbContext();
 		return await chatContext.Channels.Where(c => c.Name.StartsWith(name, StringComparison.Ordinal)).ToListAsync().ConfigureAwait(false);
 	}
-	public async Task<ICollection<Channel>> GetChannelsByUserId(int userId) {
+	public async Task<ICollection<Channel>> GetChannelsByUserIdAsync(int userId) {
 		using var chatContext = new ChatDbContext();
 		return await chatContext.ChannelsUsers.Where(cu => cu.UserId == userId).Select(cu => cu.Channel).ToListAsync().ConfigureAwait(false);
+	}
+	public async Task AddChannelMessageAsync(ChannelMessage message) {
+		using var chatContext = new ChatDbContext();
+		chatContext.ChannelMessages.Add(message);
+
+		await chatContext.SaveChangesAsync();
+	}
+	public async Task<ICollection<ChannelMessage>> GetChannelMessagesByChannelIdAsync(int channelId) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.ChannelMessages
+			.Where(cm => cm.ChannelId == channelId)
+			.OrderBy(cm => cm.CreatedAt)
+			.ToListAsync().ConfigureAwait(false);
+	}
+	public async Task<ICollection<ChannelMessage>> GetNewChannelMessagesAsync(int channelId, DateTime date) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.ChannelMessages
+			.Where(cm => cm.CreatedAt > date)
+			.OrderBy(cm => cm.CreatedAt)
+			.ToListAsync().ConfigureAwait(false);
 	}
 }

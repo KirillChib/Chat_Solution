@@ -153,6 +153,7 @@
     <Compile Include="IServer.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Request\AuthorizationUser.cs" />
+    <Compile Include="Request\ChannelMessageRequest.cs" />
     <Compile Include="Request\MessageToUser.cs" />
     <Compile Include="Request\RegistrationsUser.cs" />
     <Compile Include="Request\UserContactRequest.cs" />
