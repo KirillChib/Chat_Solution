@@ -47,4 +47,17 @@ public class ChannelServices : IChannelServices {
 			.OrderBy(cm => cm.CreatedAt)
 			.ToListAsync().ConfigureAwait(false);
 	}
+	public async Task AddUserToChannelAsync(ChannelUser channelUser) {
+		using var chatContext = new ChatDbContext();
+		chatContext.ChannelsUsers.Add(channelUser);
+
+		await chatContext.SaveChangesAsync();
+	}
+	public async Task DeleteUserFromChannelAsync(ChannelUser channelUser) {
+		using var chatContext = new ChatDbContext();
+		chatContext.ChannelsUsers.Attach(channelUser);
+		chatContext.ChannelsUsers.Remove(channelUser);
+
+		await chatContext.SaveChangesAsync();
+	}
 }
