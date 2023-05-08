@@ -1,6 +1,7 @@
 ﻿using Chat_Server.Domain.Entities;
 using Chat_Server.Helpers;
 using Chat_Server.Request;
+using Chat_Server.Response;
 
 namespace Chat_Server.Extensions;
 
@@ -23,5 +24,22 @@ public static class ChannelExtensions {
 		}
 
 		return message;
+	}
+
+	public static ChannelMessageResponse ToChannelMessageResponse(this ChannelMessage message,string name) {
+		var response = new ChannelMessageResponse {
+			UserName = name,
+			Message = message.Message,
+			File = null,
+			FileName = null,
+			CreateAt = message.CreatedAt
+		};
+
+		if (message.HasFile) {
+			response.File = FileHelper.ReadFile(message.FilePath);
+			response.FileName = FileHelper.GetFileName(message.FilePath);
+		}
+
+		return response;
 	}
 }

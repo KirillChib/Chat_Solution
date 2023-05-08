@@ -64,4 +64,8 @@ public class ChannelServices : IChannelServices {
 		using var chatContext = new ChatDbContext();
 		return await chatContext.ChannelsUsers.AnyAsync(cu => cu.UserId == userId && cu.ChannelId == channelId).ConfigureAwait(false);
 	}
+	public async Task<string> GetChannelUserFromNameByIdAsync(int userId) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.Users.Where(u => u.Id == userId).Select(u => u.Name).FirstAsync();
+	}
 }
