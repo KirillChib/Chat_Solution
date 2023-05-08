@@ -37,6 +37,7 @@ namespace Chat_Server
 			RegisterSingleton<ICommands, DeleteContactCommand>(registration);
 			RegisterSingleton<ICommands, GetAllUsersCommand>(registration);
 			RegisterSingleton<ICommands, CreateChannelCommand>(registration);
+			RegisterSingleton<ICommands, SubscribeToChannelCommand>(registration);
 
 			RegisterSingleton<IChannelServices,ChannelServices>(registration);
 			RegisterSingleton<IServer, Server>(registration);

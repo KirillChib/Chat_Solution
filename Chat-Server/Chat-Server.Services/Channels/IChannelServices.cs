@@ -15,4 +15,5 @@ public interface IChannelServices {
 	Task<ICollection<ChannelMessage>> GetNewChannelMessagesAsync(int channelId, DateTime date);
 	Task AddUserToChannelAsync(ChannelUser channelUser);
 	Task DeleteUserFromChannelAsync(ChannelUser channelUser);
+	Task<bool> ChannelUserExistAsync(int userId,int channelId);
 }

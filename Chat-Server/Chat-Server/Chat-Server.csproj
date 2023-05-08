@@ -144,6 +144,7 @@
     <Compile Include="Commands\GetNewUserMessagesCommand.cs" />
     <Compile Include="Commands\GetUserContactsCommand.cs" />
     <Compile Include="Commands\GetUserMessagesCommand.cs" />
+    <Compile Include="Commands\SubscribeToChannelCommand.cs" />
     <Compile Include="ConfigurationsFiles.cs" />
     <Compile Include="Extensions\ContactExtensions.cs" />
     <Compile Include="Extensions\HttpListenerContextExtensions.cs" />

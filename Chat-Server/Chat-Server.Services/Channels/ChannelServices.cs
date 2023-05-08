@@ -60,4 +60,8 @@ public class ChannelServices : IChannelServices {
 
 		await chatContext.SaveChangesAsync();
 	}
+	public async Task<bool> ChannelUserExistAsync(int userId, int channelId) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.ChannelsUsers.AnyAsync(cu => cu.UserId == userId && cu.ChannelId == channelId).ConfigureAwait(false);
+	}
 }
