@@ -137,6 +137,7 @@
     <Compile Include="Commands\AddUserMessageCommand.cs" />
     <Compile Include="Commands\AuthorizationCommand.cs" />
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
+    <Compile Include="Commands\CreateChannelCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
     <Compile Include="Commands\DeleteContactCommand.cs" />
     <Compile Include="Commands\GetAllUsersCommand.cs" />
