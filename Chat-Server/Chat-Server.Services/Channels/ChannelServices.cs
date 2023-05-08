@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Chat_Server.Context;
 using Chat_Server.Domain.Entities;
@@ -15,5 +18,9 @@ public class ChannelServices : IChannelServices {
 	public async Task<bool> ChannelExistAsync(string name) {
 		using var chatContext = new ChatDbContext();
 		return await chatContext.Channels.AnyAsync(c => c.Name == name).ConfigureAwait(false);
+	}
+	public async Task<ICollection<Channel>> GetChannelByNameAsync(string name) {
+		using var chatContext = new ChatDbContext();
+		return await chatContext.Channels.Where(c => c.Name.StartsWith(name, StringComparison.Ordinal)).ToListAsync().ConfigureAwait(false);
 	}
 }
