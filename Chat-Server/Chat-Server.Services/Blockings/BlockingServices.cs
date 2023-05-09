@@ -15,9 +15,9 @@ public class BlockingServices : IBlockingServices {
 
 		await chatContext.SaveChangesAsync().ConfigureAwait(false);
 	}
-	public async Task<ICollection<Blocking>> GetBlockingsByUserIdAsync(int userId) {
+	public async Task<ICollection<User>> GetBlockingsByUserIdAsync(int userId) {
 		using var chatContext = new ChatDbContext();
-		return await chatContext.Blockings.Where(b => b.UserId == userId).ToListAsync().ConfigureAwait(false);
+		return await chatContext.Blockings.Where(b => b.UserId == userId).Select(b => b.BlockingUser).ToListAsync().ConfigureAwait(false);
 	}
 	public async Task<bool> BlockingExistAsync(Blocking blocking) {
 		using var chatContext = new ChatDbContext();

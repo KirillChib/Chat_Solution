@@ -138,14 +138,17 @@
     <Compile Include="Commands\AddUserMessageCommand.cs" />
     <Compile Include="Commands\AuthorizationCommand.cs" />
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
+    <Compile Include="Commands\CreateBlockingCommand.cs" />
     <Compile Include="Commands\CreateChannelCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
+    <Compile Include="Commands\DeleteBlockingCommand.cs" />
     <Compile Include="Commands\DeleteContactCommand.cs" />
     <Compile Include="Commands\GetAllUsersCommand.cs" />
     <Compile Include="Commands\GetChannelByNameCommand.cs" />
     <Compile Include="Commands\GetChannelMessagesCommand.cs" />
     <Compile Include="Commands\GetNewChannelMessagesCommand.cs" />
     <Compile Include="Commands\GetNewUserMessagesCommand.cs" />
+    <Compile Include="Commands\GetUserBLockingsCommand.cs" />
     <Compile Include="Commands\GetUserChannelsCommand.cs" />
     <Compile Include="Commands\GetUserContactsCommand.cs" />
     <Compile Include="Commands\GetUserMessagesCommand.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Request\MessageToUser.cs" />
     <Compile Include="Request\RegistrationsUser.cs" />
     <Compile Include="Request\UserContactRequest.cs" />
+    <Compile Include="Response\BlockingResponse.cs" />
     <Compile Include="Response\ChannelMessageResponse.cs" />
     <Compile Include="Response\UserContactResponse.cs" />
     <Compile Include="Response\UserMessageResponse.cs" />
@@ -230,6 +234,7 @@
       <Name>Chat-Server.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

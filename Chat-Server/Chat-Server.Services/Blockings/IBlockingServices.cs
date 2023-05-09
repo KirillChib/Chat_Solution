@@ -6,7 +6,7 @@ namespace Chat_Server.Services.Blockings;
 
 public interface IBlockingServices {
 	Task CreateBlockingAsync(Blocking blocking);
-	Task<ICollection<Blocking>> GetBlockingsByUserIdAsync(int userId);
+	Task<ICollection<User>> GetBlockingsByUserIdAsync(int userId);
 	Task<bool> BlockingExistAsync(Blocking blocking);
 	Task DeleteBlockingAsync(Blocking blocking);
 }
