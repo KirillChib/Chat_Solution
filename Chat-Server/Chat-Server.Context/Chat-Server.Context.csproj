@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202305091552168_change-type-date.designer.cs">
       <DependentUpon>202305091552168_change-type-date.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305091613192_Add-blocking-table.cs" />
+    <Compile Include="Migrations\202305091613192_Add-blocking-table.designer.cs">
+      <DependentUpon>202305091613192_Add-blocking-table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202305091552168_change-type-date.resx">
       <DependentUpon>202305091552168_change-type-date.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305091613192_Add-blocking-table.resx">
+      <DependentUpon>202305091613192_Add-blocking-table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Blocking.cs" />
     <Compile Include="Entities\Channel.cs" />
     <Compile Include="Entities\ChannelMessage.cs" />
     <Compile Include="Entities\ChannelUser.cs" />

@@ -9,6 +9,7 @@ namespace Chat_Server.Context {
 		public DbSet<ChannelMessage> ChannelMessages { get; set; }
 		public DbSet<ChannelUser> ChannelsUsers { get; set; }
 		public DbSet<UserContact> UsersContacts { get; set; }
+		public DbSet<Blocking> Blockings { get; set; }
 
 		public ChatDbContext() : base("DbConnection") {
 		}
@@ -86,6 +87,21 @@ namespace Chat_Server.Context {
 				.HasRequired(uc => uc.ContactUser)
 				.WithMany(cu => cu.Contacts)
 				.HasForeignKey(c => c.ContactUserId)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Blocking>()
+				.HasKey(b => new { b.UserId, b.BlockingUserId });
+
+			modelBuilder.Entity<Blocking>()
+				.HasRequired(b => b.User)
+				.WithMany(u => u.BlockingUsersFrom)
+				.HasForeignKey(b => b.UserId)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Blocking>()
+				.HasRequired(b => b.BlockingUser)
+				.WithMany(bu => bu.BlockingUsersTo)
+				.HasForeignKey(b => b.BlockingUserId)
 				.WillCascadeOnDelete(false);
 
 			base.OnModelCreating(modelBuilder);

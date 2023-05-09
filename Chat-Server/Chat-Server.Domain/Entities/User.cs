@@ -17,5 +17,7 @@ namespace Chat_Server.Domain.Entities
 		public ICollection<ChannelUser> ChannelsUser { get; set; }
 		public ICollection<UserContact> UserContacts { get; set; }
 		public ICollection<UserContact> Contacts { get; set; }
+		public ICollection<Blocking> BlockingUsersTo { get; set; }
+		public ICollection<Blocking> BlockingUsersFrom { get; set; }
 	}
 }

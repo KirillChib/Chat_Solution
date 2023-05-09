@@ -40,8 +40,11 @@ namespace Chat_Server
 			RegisterSingleton<ICommands, SubscribeToChannelCommand>(registration);
 			RegisterSingleton<ICommands, AddChannelMessageCommand>(registration);
 			RegisterSingleton<ICommands, GetChannelMessagesCommand>(registration);
+			RegisterSingleton<ICommands, GetNewChannelMessagesCommand>(registration);
+			RegisterSingleton<ICommands, GetChannelByNameCommand>(registration);
+			RegisterSingleton<ICommands, GetUserChannelsCommand>(registration);
 
-			RegisterSingleton<IChannelServices,ChannelServices>(registration);
+			RegisterSingleton<IChannelServices, ChannelServices>(registration);
 			RegisterSingleton<IServer, Server>(registration);
 			RegisterSingleton<IUserServices, UserServices>(registration);
 			RegisterSingleton<IMessageService, MessageService>(registration);
