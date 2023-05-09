@@ -7,6 +7,7 @@ using Chat_Server.Services.Users;
 using Grace.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Chat_Server.Services.Channels;
 using Chat_Server.Services.Contacts;
 
 
@@ -35,8 +36,12 @@ namespace Chat_Server
 			RegisterSingleton<ICommands, GetUserContactsCommand>(registration);
 			RegisterSingleton<ICommands, DeleteContactCommand>(registration);
 			RegisterSingleton<ICommands, GetAllUsersCommand>(registration);
-			//RegisterSingleton<ICommand, LogInCommand>(registration);
+			RegisterSingleton<ICommands, CreateChannelCommand>(registration);
+			RegisterSingleton<ICommands, SubscribeToChannelCommand>(registration);
+			RegisterSingleton<ICommands, AddChannelMessageCommand>(registration);
+			RegisterSingleton<ICommands, GetChannelMessagesCommand>(registration);
 
+			RegisterSingleton<IChannelServices,ChannelServices>(registration);
 			RegisterSingleton<IServer, Server>(registration);
 			RegisterSingleton<IUserServices, UserServices>(registration);
 			RegisterSingleton<IMessageService, MessageService>(registration);

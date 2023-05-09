@@ -44,7 +44,7 @@ namespace Chat_Server.Context {
 
 			modelBuilder.Entity<UserMessage>()
 				.Property(um => um.CreatedAt)
-				.HasColumnType("date");
+				.HasColumnType("datetime");
 
 			modelBuilder.Entity<ChannelMessage>()
 				.HasRequired(cm => cm.UserFrom)
@@ -58,7 +58,7 @@ namespace Chat_Server.Context {
 
 			modelBuilder.Entity<ChannelMessage>()
 				.Property(cm => cm.CreatedAt)
-				.HasColumnType("date");
+				.HasColumnType("datetime");
 
 			modelBuilder.Entity<ChannelUser>()
 				.HasKey(cu => new { cu.ChannelId, cu.UserId });

@@ -133,17 +133,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AddChannelMessageCommand.cs" />
     <Compile Include="Commands\AddUserContactCommand.cs" />
     <Compile Include="Commands\AddUserMessageCommand.cs" />
     <Compile Include="Commands\AuthorizationCommand.cs" />
     <Compile Include="Commands\AuthorizationUserCommand.cs" />
+    <Compile Include="Commands\CreateChannelCommand.cs" />
     <Compile Include="Commands\CreateUserCommand.cs" />
     <Compile Include="Commands\DeleteContactCommand.cs" />
     <Compile Include="Commands\GetAllUsersCommand.cs" />
+    <Compile Include="Commands\GetChannelByNameCommand.cs" />
+    <Compile Include="Commands\GetChannelMessagesCommand.cs" />
+    <Compile Include="Commands\GetNewChannelMessagesCommand.cs" />
     <Compile Include="Commands\GetNewUserMessagesCommand.cs" />
+    <Compile Include="Commands\GetUserChannelsCommand.cs" />
     <Compile Include="Commands\GetUserContactsCommand.cs" />
     <Compile Include="Commands\GetUserMessagesCommand.cs" />
+    <Compile Include="Commands\SubscribeToChannelCommand.cs" />
     <Compile Include="ConfigurationsFiles.cs" />
+    <Compile Include="Extensions\ChannelExtensions.cs" />
     <Compile Include="Extensions\ContactExtensions.cs" />
     <Compile Include="Extensions\HttpListenerContextExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
@@ -153,9 +161,11 @@
     <Compile Include="IServer.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Request\AuthorizationUser.cs" />
+    <Compile Include="Request\ChannelMessageRequest.cs" />
     <Compile Include="Request\MessageToUser.cs" />
     <Compile Include="Request\RegistrationsUser.cs" />
     <Compile Include="Request\UserContactRequest.cs" />
+    <Compile Include="Response\ChannelMessageResponse.cs" />
     <Compile Include="Response\UserContactResponse.cs" />
     <Compile Include="Response\UserMessageResponse.cs" />
     <Compile Include="Server.cs" />
