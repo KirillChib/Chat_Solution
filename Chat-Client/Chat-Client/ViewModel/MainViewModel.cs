@@ -1,4 +1,5 @@
 using Chat_Client.Api;
+using Chat_Client.Api.User;
 using GalaSoft.MvvmLight;
 
 namespace Chat_Client.ViewModel
