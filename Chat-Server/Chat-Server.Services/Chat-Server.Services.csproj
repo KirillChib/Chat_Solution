@@ -85,6 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blockings\BlockingServices.cs" />
+    <Compile Include="Blockings\IBlockingServices.cs" />
     <Compile Include="Channels\ChannelServices.cs" />
     <Compile Include="Channels\IChannelServices.cs" />
     <Compile Include="Contacts\ContactServices.cs" />

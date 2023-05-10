@@ -27,5 +27,12 @@ namespace Chat_Server.Extensions {
 				UserName = user.Name
 			};
 		}
+
+		public static BlockingResponse ToBlockingResponse(this User user) {
+			return new BlockingResponse {
+				UserId = user.Id,
+				UserName = user.Name
+			};
+		}
 	}
 }

@@ -43,6 +43,9 @@ namespace Chat_Server
 			RegisterSingleton<ICommands, GetNewChannelMessagesCommand>(registration);
 			RegisterSingleton<ICommands, GetChannelByNameCommand>(registration);
 			RegisterSingleton<ICommands, GetUserChannelsCommand>(registration);
+			RegisterSingleton<ICommands, CreateBlockingCommand>(registration);
+			RegisterSingleton<ICommands, DeleteBlockingCommand>(registration);
+			RegisterSingleton<ICommands, GetUserBLockingsCommand>(registration);
 
 			RegisterSingleton<IChannelServices, ChannelServices>(registration);
 			RegisterSingleton<IServer, Server>(registration);
