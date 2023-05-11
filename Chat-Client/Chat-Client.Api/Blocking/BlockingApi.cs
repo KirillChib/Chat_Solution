@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Chat_Client.Api.Request;
 using Chat_Client.Api.Response;
 
-namespace Chat_Client.Api.Blocking; 
+namespace Chat_Client.Api.Blocking;
 
 public class BlockingApi : ApiBase, IBlockingApi {
 	public BlockingApi(string baseUri) : base(baseUri) {
@@ -16,5 +15,9 @@ public class BlockingApi : ApiBase, IBlockingApi {
 	}
 	public async Task<ICollection<BlockingResponse>> GetBlockingsRequestAsync(string token) {
 		return await SendAsync<ICollection<BlockingResponse>>(HttpMethod.Get, @"/blockings", token).ConfigureAwait(false);
+	}
+	public async Task<string> DeleteBlockingRequestAsync(BlockingRequest blocking, string token) {
+		var response = await SendAsync(HttpMethod.Delete, @"/blocking", token, blocking).ConfigureAwait(false);
+		return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 	}
 }
