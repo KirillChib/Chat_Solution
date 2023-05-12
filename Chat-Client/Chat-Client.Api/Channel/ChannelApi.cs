@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Chat_Client.Api.Channel;
@@ -13,5 +14,8 @@ public class ChannelApi : ApiBase, IChannelApi{
 	public async Task<string> SubscribeChannelRequestAsync(string token, int channelId) {
 		var response = await SendAsync(HttpMethod.Post, $@"/channels/{channelId}", token).ConfigureAwait(false);
 		return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+	}
+	public async Task<ICollection<Channel>> GetUserChannelsAsync(string token) {
+		return await SendAsync<ICollection<Channel>>(HttpMethod.Get, @"/channels/my", token).ConfigureAwait(false);
 	}
 }
