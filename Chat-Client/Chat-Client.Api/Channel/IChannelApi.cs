@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Chat_Client.Api.Request;
 using Chat_Client.Api.Response;
@@ -12,4 +13,5 @@ public interface IChannelApi {
 	Task<ICollection<Channel>> GetChannelByNameRequestAsync(string token, string channelName);
 	Task<string> AddChannelMessageRequestAsync(ChannelMessageRequest message, string token, int channelId);
 	Task<ICollection<ChannelMessageResponse>> GetChannelMessagesRequestAsync(string token, int channelId);
+	Task<ICollection<ChannelMessageResponse>> GetNewChannelMessagesRequestAsync(string token, int channelId, DateTime date);
 }

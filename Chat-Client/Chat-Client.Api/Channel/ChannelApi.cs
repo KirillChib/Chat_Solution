@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Chat_Client.Api.Request;
@@ -29,5 +30,8 @@ public class ChannelApi : ApiBase, IChannelApi{
 	}
 	public async Task<ICollection<ChannelMessageResponse>> GetChannelMessagesRequestAsync(string token, int channelId) {
 		return await SendAsync<ICollection<ChannelMessageResponse>>(HttpMethod.Get, $@"/channels/{channelId}/messages", token).ConfigureAwait(false);
+	}
+	public async Task<ICollection<ChannelMessageResponse>> GetNewChannelMessagesRequestAsync(string token, int channelId, DateTime date) {
+		return await SendAsync<ICollection<ChannelMessageResponse>>(HttpMethod.Get, $@"/channels/{channelId}/messages/new?Date={date}", token).ConfigureAwait(false);
 	}
 }
