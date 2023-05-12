@@ -58,6 +58,7 @@
     <Compile Include="Message\IMessageApi.cs" />
     <Compile Include="Message\MessageApi.cs" />
     <Compile Include="Request\BlockingRequest.cs" />
+    <Compile Include="Request\ChannelMessageRequest.cs" />
     <Compile Include="Request\MessageToUser.cs" />
     <Compile Include="Response\BlockingResponse.cs" />
     <Compile Include="Response\MessageFromUser.cs" />
