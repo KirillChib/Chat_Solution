@@ -49,6 +49,8 @@
     <Compile Include="ApiBase.cs" />
     <Compile Include="Blocking\BlockingApi.cs" />
     <Compile Include="Blocking\IBlockingApi.cs" />
+    <Compile Include="Channel\ChannelApi.cs" />
+    <Compile Include="Channel\IChannelApi.cs" />
     <Compile Include="Contact\ContactApi.cs" />
     <Compile Include="Contact\IContactApi.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
