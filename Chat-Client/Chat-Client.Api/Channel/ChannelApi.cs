@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Chat_Client.Api.Request;
+using Chat_Client.Api.Response;
 
 namespace Chat_Client.Api.Channel;
 
@@ -25,5 +26,8 @@ public class ChannelApi : ApiBase, IChannelApi{
 	public async Task<string> AddChannelMessageRequestAsync(ChannelMessageRequest message, string token, int channelId) {
 		var response = await SendAsync(HttpMethod.Post, $@"/channels/{channelId}/message", token, message).ConfigureAwait(false);
 		return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+	}
+	public async Task<ICollection<ChannelMessageResponse>> GetChannelMessagesRequestAsync(string token, int channelId) {
+		return await SendAsync<ICollection<ChannelMessageResponse>>(HttpMethod.Get, $@"/channels/{channelId}/messages", token).ConfigureAwait(false);
 	}
 }
