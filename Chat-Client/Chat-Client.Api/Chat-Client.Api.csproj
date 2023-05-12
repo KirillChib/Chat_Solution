@@ -49,6 +49,7 @@
     <Compile Include="ApiBase.cs" />
     <Compile Include="Blocking\BlockingApi.cs" />
     <Compile Include="Blocking\IBlockingApi.cs" />
+    <Compile Include="Channel\Channel.cs" />
     <Compile Include="Channel\ChannelApi.cs" />
     <Compile Include="Channel\IChannelApi.cs" />
     <Compile Include="Contact\ContactApi.cs" />
@@ -57,8 +58,10 @@
     <Compile Include="Message\IMessageApi.cs" />
     <Compile Include="Message\MessageApi.cs" />
     <Compile Include="Request\BlockingRequest.cs" />
+    <Compile Include="Request\ChannelMessageRequest.cs" />
     <Compile Include="Request\MessageToUser.cs" />
     <Compile Include="Response\BlockingResponse.cs" />
+    <Compile Include="Response\ChannelMessageResponse.cs" />
     <Compile Include="Response\MessageFromUser.cs" />
     <Compile Include="Response\UserContactResponse.cs" />
     <Compile Include="Response\UserResponse.cs" />
