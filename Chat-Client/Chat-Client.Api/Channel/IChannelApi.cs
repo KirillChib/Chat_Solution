@@ -7,4 +7,5 @@ public interface IChannelApi {
 	Task<string> CreateChannelRequestAsync(string token, string channelName);
 	Task<string> SubscribeChannelRequestAsync(string token, int channelId);
 	Task<ICollection<Channel>> GetUserChannelsAsync(string token);
+	Task<ICollection<Channel>> GetChannelByNameRequestAsync(string token, string channelName);
 }

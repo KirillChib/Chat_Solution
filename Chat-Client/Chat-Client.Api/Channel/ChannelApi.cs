@@ -18,4 +18,7 @@ public class ChannelApi : ApiBase, IChannelApi{
 	public async Task<ICollection<Channel>> GetUserChannelsAsync(string token) {
 		return await SendAsync<ICollection<Channel>>(HttpMethod.Get, @"/channels/my", token).ConfigureAwait(false);
 	}
+	public async Task<ICollection<Channel>> GetChannelByNameRequestAsync(string token, string channelName) {
+		return await SendAsync<ICollection<Channel>>(HttpMethod.Get, $@"/channels?Name={channelName}", token).ConfigureAwait(false);
+	}
 }
