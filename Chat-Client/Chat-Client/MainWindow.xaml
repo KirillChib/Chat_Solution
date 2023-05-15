@@ -8,15 +8,16 @@
         Title="MainWindow" Height="530" Width="800"
 		DataContext="{Binding Main, Source={StaticResource Locator}}">
 	<Grid>
-		<Grid.ColumnDefinitions>
+		<Grid Visibility="{Binding Path=VisibilityChat}">
+			<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="3*" />
 		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
+			<Grid.RowDefinitions>
 			<RowDefinition Height="4*" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<TabControl Grid.Column="0"
+			<TabControl Grid.Column="0"
 					Grid.RowSpan="2"
 					Grid.Row="0"
 					Margin="10">
@@ -26,8 +27,9 @@
 				</TabItem.Header>
 				<TabItem.Content>
 					<StackPanel>
-						<ListView Height="380"
-								  ItemsSource="{Binding Path=Contacts, UpdateSourceTrigger=PropertyChanged}">
+						<ListView Height="330"
+								  ItemsSource="{Binding Path=Contacts, UpdateSourceTrigger=PropertyChanged}"
+								  SelectedItem="{Binding Path=SelectedContact}">
 							<ListView.View>
 								<GridView>
 									<GridViewColumn 
@@ -41,13 +43,20 @@
 									Margin="5">
 							<Button Width="70"
 									Height="20"
-									Content="Чат"/>
+									Content="Чат"
+									Command="{Binding GetUserMessagesCommand}"/>
 							<Button Width="70"
 									Height="20"
 									Margin="20,0,0,0"
-									Content="Удалить"/>
+									Content="Удалить"
+									Command="{Binding DeleteContactCommand}"/>
 						</StackPanel>
-					</StackPanel>
+							<Button Width="100"
+									Height="20"
+									Margin="20,0,0,0"
+									Content="Добавить в ЧС"
+									Command="{Binding AddIgnoreUserCommand}"/>
+						</StackPanel>
 				</TabItem.Content>
 			</TabItem>
 			<TabItem>
@@ -56,8 +65,9 @@
 				</TabItem.Header>
 				<TabItem.Content>
 					<StackPanel>
-						<ListView Height="380"
-								  ItemsSource="{Binding Path=Channels,UpdateSourceTrigger=PropertyChanged}">
+						<ListView Height="330"
+								  ItemsSource="{Binding Path=Channels,UpdateSourceTrigger=PropertyChanged}"
+								  SelectedItem="{Binding Path=SelectedChannel}">
 							<ListView.View>
 								<GridView>
 									<GridViewColumn 
@@ -71,12 +81,16 @@
 									Margin="5">
 							<Button Width="70"
 									Height="20"
-									Content="Чат"/>
+									Content="Чат"
+									Command="{Binding GetChannelMessagesCommand}"/>
 							<Button Width="70"
 									Height="20"
 									Margin="20,0,0,0"
-									Content="Удалить"/>
+									Content="Создать"
+									Command="{Binding CreateChannelCommand}"/>
 						</StackPanel>
+						<TextBox Width="150"
+								 Text="{Binding Path=ChannelName}"/>
 					</StackPanel>
 				</TabItem.Content>
 			</TabItem>
@@ -86,8 +100,9 @@
 				</TabItem.Header>
 				<TabItem.Content>
 					<StackPanel>
-						<ListView Height="380"
-								  ItemsSource="{Binding Path=Users,UpdateSourceTrigger=PropertyChanged}">
+						<ListView Height="330"
+								  ItemsSource="{Binding Path=Users,UpdateSourceTrigger=PropertyChanged}"
+								  SelectedItem="{Binding Path=SelectedUser}">
 							<ListView.View>
 								<GridView>
 									<GridViewColumn 
@@ -101,41 +116,176 @@
 									Margin="5">
 							<Button Width="70"
 									Height="20"
-									Content="Чат"/>
+									Content="Найти"
+									Command="{Binding SearchUsersCommand}"/>
 							<Button Width="70"
 									Height="20"
 									Margin="20,0,0,0"
-									Content="Добавить"/>
+									Content="Добавить"
+									Command="{Binding AddContactCommand}"/>
 						</StackPanel>
+						<TextBox Width="160"
+								 Text="{Binding Path=UserName}"/>
+						<Button Width="100"
+									Height="20"
+									Margin="10"
+									Content="Все пользователи"
+									Command="{Binding GetUsersCommand}"/>
 					</StackPanel>
 				</TabItem.Content>
 			</TabItem>
-		</TabControl>
-		
-		<ListView Grid.Column="1"
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="Черный список" />
+				</TabItem.Header>
+				<TabItem.Content>
+					<StackPanel>
+						<ListView Height="330"
+								  ItemsSource="{Binding Path=BlockingUsers,UpdateSourceTrigger=PropertyChanged}"
+								  SelectedItem="{Binding Path=SelectedBlocking}">
+							<ListView.View>
+								<GridView>
+									<GridViewColumn 
+										DisplayMemberBinding ="{Binding Path=Name}">
+									</GridViewColumn>
+								</GridView>
+							</ListView.View>
+						</ListView>
+							<StackPanel Orientation="Horizontal"
+									Height="30"
+									Margin="5">
+								<Button Width="80"
+									Height="20"
+									Content="Удалить"
+									Command="{Binding DeleteIgnoreUserCommand}"/>
+							</StackPanel>
+						</StackPanel>
+				</TabItem.Content>
+			</TabItem>
+				<TabItem>
+					<TabItem.Header>
+						<TextBlock Text="Поиск каналов" />
+					</TabItem.Header>
+					<TabItem.Content>
+						<StackPanel>
+							<ListView Height="330"
+								  ItemsSource="{Binding Path=SearchChannels,UpdateSourceTrigger=PropertyChanged}"
+								  SelectedItem="{Binding Path=SearcSelectedChannel}">
+								<ListView.View>
+									<GridView>
+										<GridViewColumn 
+										DisplayMemberBinding ="{Binding Path=Name}">
+										</GridViewColumn>
+									</GridView>
+								</ListView.View>
+							</ListView>
+							<StackPanel Orientation="Horizontal"
+									Height="30"
+									Margin="5">
+								<Button Width="80"
+									Height="20"
+									Content="Найти"
+									Command="{Binding SearcChannelCommand}"/>
+								<Button Width="80"
+									Height="20"
+									Margin="5,0,0,0"
+									Content="Подписаться"
+									Command="{Binding SubscribeChannelCommand}"/>
+							</StackPanel>
+							<StackPanel Orientation="Horizontal"
+									Height="30"
+									Margin="5">
+								<TextBlock Text="Название"
+									   VerticalAlignment="Center"/>
+								<TextBox Width="100"
+									 Margin="5"
+									 Text="{Binding Path=ChannelName}"/>
+							</StackPanel>
+						</StackPanel>
+					</TabItem.Content>
+				</TabItem>
+			</TabControl>
+			
+			<ListView Grid.Column="1"
 				  Grid.Row="0"
-				  Margin="10">
+				  Margin="10"
+				  ItemsSource="{Binding Path=MessagesView}">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Width="450"
+									DisplayMemberBinding="{Binding Path=FullMessage}">
+					</GridViewColumn>
+					<GridViewColumn>
+						<GridViewColumn.CellTemplate>
+							<DataTemplate>
+								<Image Source="{Binding Path=FilePath}"/>
+							</DataTemplate>
+						</GridViewColumn.CellTemplate>
+					</GridViewColumn>
+				</GridView>
+			</ListView.View>
 		</ListView>
-		<StackPanel Grid.Column="1"
+			<StackPanel Grid.Column="1"
 					Grid.Row="1"
 					Margin="10"
 					Orientation="Horizontal">
-			<TextBox Width="450" />
+			<TextBox Width="450" 
+					 Text="{Binding Path=Message}"/>
 			<StackPanel Margin="10,0,10,0">
 				<Button Width="85"
 					Height="20"
-					VerticalAlignment="Top"
-					Content="Отправить"/>
+						Margin="5"
+					Content="Отправить"
+						Command="{Binding SendMessageCommand}"/>
 				<Button Width="85"
 					Height="20"
 					Margin="5"
-					VerticalAlignment="Top"
-					Content="Прикрепить"/>
-				<Button Width="85"
-					Height="20"
-					VerticalAlignment="Top"
-					Content="Сохранить"/>
+					Content="Прикрепить"
+					Command="{Binding AddMessageFileCommand}"/>
 			</StackPanel>
 		</StackPanel>
+		</Grid>
+		<Grid Visibility="{Binding Path=VisibilitySign}">
+			<StackPanel VerticalAlignment="Center"
+						HorizontalAlignment="Center">
+				<TextBlock Width="200"
+						   Margin="10"
+						   HorizontalAlignment="Left"
+						   Text="{Binding Path=Status}"/>
+				<StackPanel Orientation="Horizontal">
+					<TextBox Width="200"
+							 Margin="10"/>
+					<TextBlock Text="Логин"
+							   FontSize="16"
+							   Margin="10"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<TextBox Width="200"
+							 Margin="10"/>
+					<TextBlock Text="Пароль"
+							   FontSize="16"
+							   Margin="10"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<TextBox Width="200"
+							 Margin="10"/>
+					<TextBlock Text="Имя"
+							   FontSize="16"
+							   Margin="10"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Button Width="80"
+							Height="20"
+							Margin="10"
+							Content="Войти"
+							Command="{Binding LogInUserCommand}"/>
+					<Button Width="80"
+							Height="20"
+							Margin="10"
+							Content="Регистрация"
+							Command="{Binding CreateUserCommand}"/>
+				</StackPanel>
+			</StackPanel>
+		</Grid>
 	</Grid>
 </Window>

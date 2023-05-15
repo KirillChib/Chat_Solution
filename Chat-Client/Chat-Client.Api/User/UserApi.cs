@@ -23,4 +23,5 @@ public class UserApi : ApiBase, IUserApi {
 	public async Task<ICollection<UserResponse>> GetAllUserRequest(string token) {
 		return await SendAsync<ICollection<UserResponse>>(HttpMethod.Get, "/users", token).ConfigureAwait(false);
 	}
+
 }

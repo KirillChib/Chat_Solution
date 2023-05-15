@@ -1,14 +1,19 @@
 using AsyncCommandLibrary;
-using Chat_Client.Api;
 using Chat_Client.Api.Blocking;
 using Chat_Client.Api.Channel;
 using Chat_Client.Api.Contact;
+using Chat_Client.Api.Extensions;
+using Chat_Client.Api.Helpers;
 using Chat_Client.Api.Message;
 using Chat_Client.Api.Response;
 using Chat_Client.Api.User;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace Chat_Client.ViewModel
@@ -16,6 +21,8 @@ namespace Chat_Client.ViewModel
 	public class MainViewModel : ViewModelBase
 	{
 		private const string BaseUri = "http://127.0.0.1:8888";
+		private const string _path = @"D:\Images";
+
 		private readonly IUserApi _userApi = new UserApi(BaseUri);
 		private readonly IMessageApi _messageApi = new MessageApi(BaseUri);
 		private readonly IContactApi _contactApi = new ContactApi(BaseUri);
@@ -23,25 +30,117 @@ namespace Chat_Client.ViewModel
 		private readonly IBlockingApi _blockingApi = new BlockingApi(BaseUri);
 
 		private string _token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjUiLCJpc3MiOiJDaGF0LVNvbHV0aW9uIn0.fLFJ_dObDJZtbUyN7KeUpubYHDpwtQG6C_gBLpuhipU";
+
 		private ObservableCollection<UserResponse> users;
 		private ObservableCollection<UserContactResponse> contacts;
 		private ObservableCollection<Channel> channels;
+		private ObservableCollection<MessageView> messagesView;
+		private ObservableCollection<Channel> searchChannels;
+		private ObservableCollection<BlockingResponse> blockingUsers;
 
+		private UserResponse selectedUser;
+		private UserContactResponse selectedContact;
+		private Channel selectedChannel;
+		private Channel searcSelectedChannel;
+		private BlockingResponse selectedBlocking;
+
+		private string channelName;
+		private string createChannelName;
+		private string userName;
+		private string logIn;
+		private string password;
+		private string name;
+		private string status;
+		private Visibility visibilitySign;
+		private Visibility visibilityChat;
+
+		//UserCommands
 		private ICommand getUsersCommand;
+		private ICommand addContactCommand;
+		private ICommand searchUsersCommand;
 
-		
-		//public ICommand GetUsersCommand => getUsersCommand ??= new AsyncRelayCommand(GetUsersAsync);
+		//Channel Commands
+		private ICommand getChannelMessagesCommand;
+		private ICommand createChannelCommand;
+		private ICommand searchChannelCommand;
+		private ICommand subscribeChannelCommand;
+
+		//Contact Commands
+		private ICommand getUserMessagesCommand;
+		private ICommand deleteContactCommand;
+
+		//Message Commands
+		private ICommand sendMessageCommand;
+		private ICommand addMessageFileCommand;
+
+		//Sign Commands
+		private ICommand createUserCommand;
+		private ICommand logInUserCommand;
+
+		//Ignore Commands
+		private ICommand addIgnoreUserCommand;
+		private ICommand deleteIgnoreUserCommand;
+
+		//UserCommands
+		public ICommand GetUsersCommand => getUsersCommand ??= new AsyncRelayCommand(GetUsersAsync);//+
+		public ICommand AddContactCommand => addContactCommand ??= new AsyncRelayCommand(AddContactAsync);//+
+		public ICommand SearchUsersCommand => searchUsersCommand ??= new AsyncRelayCommand(SearchUserByNameAsync);//+
+
+		//Channel Commands
+		public ICommand GetChannelMessagesCommand => getChannelMessagesCommand ??= new AsyncRelayCommand(GetChannelMessagesById);//+
+		public ICommand CreateChannelCommand => createChannelCommand ??= new AsyncRelayCommand(CreateChannelAsync);//+
+		public ICommand SearcChannelCommand => searchChannelCommand ??= new AsyncRelayCommand(SearchChannelAsync);//+
+		public ICommand SubscribeChannelCommand => subscribeChannelCommand ??= new AsyncRelayCommand(SubscribeChannelAsync);//+
+
+		//Contact Commands
+		public ICommand GetUserMessagesCommand => getUserMessagesCommand ??= new AsyncRelayCommand(GetUserMessageByIdAsync);//+
+		public ICommand DeleteContactCommand => deleteContactCommand ??= new AsyncRelayCommand(DeleteContactAsync);//+
+
+		//Message Commands
+		public ICommand SendMessageCommand => sendMessageCommand ??= new AsyncRelayCommand(SendMessageAsync);//+
+		public ICommand AddMessageFileCommand => addMessageFileCommand ??= new RelayCommand(OpenFile);//+
+
+		//Sign Commands
+		public ICommand CreateUserCommand => createUserCommand ??= new AsyncRelayCommand(CreateUserAsync);//+
+		public ICommand LogInUserCommand => logInUserCommand ??= new AsyncRelayCommand(AuthorizationUserAsync);//+
+
+		//Ignore Commands
+		public ICommand AddIgnoreUserCommand => addIgnoreUserCommand ??= new AsyncRelayCommand(AddBlockingUserAsync);
+		public ICommand DeleteIgnoreUserCommand => deleteIgnoreUserCommand ??= new AsyncRelayCommand(DeleteBlockingUserAsync);
+
+		public ObservableCollection<UserResponse> Users { get => users; set => Set(ref users, value); }
+		public ObservableCollection<UserContactResponse> Contacts { get => contacts; set => Set(ref contacts, value); }
+		public ObservableCollection<Channel> Channels { get => channels; set => Set(ref channels, value); }
+		public ObservableCollection<MessageView> MessagesView { get => messagesView; set => Set(ref messagesView, value); }
+		public ObservableCollection<Channel> SearchChannels { get => searchChannels; set => Set(ref searchChannels, value); }
+		public ObservableCollection<BlockingResponse> BlockingUsers { get => blockingUsers; set => Set(ref blockingUsers,value); }
+
+		public UserResponse SelectedUser { get => selectedUser; set => Set(ref selectedUser, value); }
+		public UserContactResponse SelectedContact { get => selectedContact; set => Set(ref selectedContact, value); }
+		public Channel SelectedChannel { get => selectedChannel; set => Set(ref selectedChannel, value); }
+		public Channel SearcSelectedChannel { get => searcSelectedChannel; set => Set(ref searcSelectedChannel, value); }
+		public BlockingResponse SelectedBlocking { get => selectedBlocking; set => Set(ref selectedBlocking,value); }
+
+		public bool IsChannel { get; set; }
+		public byte[] MessageFile { get; set; } = null;
+		public string FileName { get; set; } = null;
+		public string Message { get; set; }
+		public string LogIn { get => logIn; set => Set(ref logIn,value); }
+		public string Password { get => password; set => Set(ref password,value); }
+		public string Name { get => name; set => Set(ref name,value); }
+		public string Status { get => status; set => Set(ref status,value); }
+		public Visibility VisibilitySign { get => visibilitySign; set => Set(ref visibilitySign,value); }
+		public Visibility VisibilityChat { get => visibilityChat; set => Set(ref visibilityChat,value); }
+
+		public string ChannelName { get => channelName; set => Set(ref channelName, value); }
+		public string CreateChannelName { get => createChannelName; set => Set(ref createChannelName, value); }
+		public string UserName { get => userName; set => Set(ref userName, value); }		
 
 		public MainViewModel()
 		{
-			GetUsersAsync();
-			GetContactsAsync();
-			GetChannelsAsync();
+			VisibilityChat = Visibility.Collapsed;
+			VisibilitySign = Visibility.Visible;
 		}
-
-		public ObservableCollection<UserResponse> Users { get => users; set =>Set(ref users,value); }
-		public ObservableCollection<UserContactResponse> Contacts { get => contacts; set => Set(ref contacts,value); }
-		public ObservableCollection<Channel> Channels { get => channels; set => Set(ref channels,value); }
 
 		private async Task GetUsersAsync()
 		{
@@ -59,6 +158,157 @@ namespace Chat_Client.ViewModel
 		{
 			var channels = await _channelApi.GetUserChannelsAsync(_token).ConfigureAwait(false);
 			Channels = new ObservableCollection<Channel>(channels);
+		}
+
+		private void OpenFile()
+		{
+			using var fileDialog = new OpenFileDialog();
+			if (fileDialog.ShowDialog() == DialogResult.Cancel)
+				return;
+
+			var path = fileDialog.FileName;
+
+			FileName = FileHelper.GetFileName(path);
+			MessageFile = FileHelper.ReadFile(path);
+		}
+
+		private async Task SendMessageAsync()
+		{
+			if (IsChannel)
+			{
+				var message = MessageHelper.CreateChannelMessage(Message, MessageFile, FileName);
+				await _channelApi.AddChannelMessageRequestAsync(message, _token, SelectedChannel.Id).ConfigureAwait(false);
+				await GetChannelMessagesById().ConfigureAwait(false);
+			}
+			else
+			{
+				var message = MessageHelper.CreateUserMessage(selectedContact.UserId, Message, MessageFile, FileName);
+				await _messageApi.SendMessageToUserRequestAsync(_token, message).ConfigureAwait(false);
+				await GetUserMessageByIdAsync().ConfigureAwait(false);
+			}
+
+			MessageFile = null;
+			FileName = null;
+		}
+
+		private async Task GetUserMessageByIdAsync()
+		{
+			IsChannel = false;
+
+			var messages = await _messageApi.GetUserMessagesRequestAsync(_token, SelectedContact.UserId).ConfigureAwait(false);
+			MessagesView = new ObservableCollection<MessageView>();
+
+			foreach (var message in messages)
+				MessagesView.Add(message.UserMessageToView(_path));
+		}
+
+		private async Task GetChannelMessagesById()
+		{
+			IsChannel = true;
+
+			var messages = await _channelApi.GetChannelMessagesRequestAsync(_token, SelectedChannel.Id).ConfigureAwait(false);
+			MessagesView = new ObservableCollection<MessageView>();
+
+			foreach (var message in messages)
+				MessagesView.Add(message.ChannelMessageToView(_path));
+		}
+
+		private async Task SubscribeChannelAsync()
+		{
+			await _channelApi.SubscribeChannelRequestAsync(_token, SearcSelectedChannel.Id).ConfigureAwait(false);
+
+			var chennels = await _channelApi.GetUserChannelsAsync(_token).ConfigureAwait(false);
+			Channels = new ObservableCollection<Channel>(chennels);
+		}
+
+		private async Task SearchChannelAsync()
+		{
+			var channels = await _channelApi.GetChannelByNameRequestAsync(_token, ChannelName).ConfigureAwait(false);
+
+			SearchChannels = new ObservableCollection<Channel>(channels);
+		}
+
+		private async Task SearchUserByNameAsync()
+		{
+			var users = await Task.Run(() => Users.Where(u => u.UserName.StartsWith(UserName)));
+			Users = new ObservableCollection<UserResponse>(users);
+		}
+
+		private async Task AddContactAsync()
+		{
+			await _contactApi.AddUserContactRequestAsync(SelectedUser.UserId, _token).ConfigureAwait(false);
+
+			await GetContactsAsync().ConfigureAwait(false);
+		}
+
+		private async Task DeleteContactAsync()
+		{
+			await _contactApi.DeleteUserContactRequestAsync(SelectedUser.UserId, _token).ConfigureAwait(false);
+
+			await GetContactsAsync().ConfigureAwait(false);
+		}
+
+		private async Task CreateChannelAsync()
+		{
+			await _channelApi.CreateChannelRequestAsync(_token, CreateChannelName).ConfigureAwait(false);
+
+			await GetChannelsAsync().ConfigureAwait(false);
+		}
+
+		private async Task CreateUserAsync()
+		{
+			if(string.IsNullOrWhiteSpace(LogIn) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(Name))
+			{
+				Status = "Не все поля заполнены";
+				return;
+			}
+
+			var user = UserHelper.CreateNewUser(LogIn, Password, Name);
+			Status = await _userApi.RegistrationRequestAsync(user).ConfigureAwait(false);
+		}
+
+		private async Task AuthorizationUserAsync()
+		{
+			if (string.IsNullOrWhiteSpace(LogIn) || string.IsNullOrWhiteSpace(Password))
+			{
+				Status = "Не все поля заполнены";
+				return;
+			}
+
+			var userLogin = UserHelper.CreateUserLogIn(LogIn, Password);
+			_token = await _userApi.LoginRequestAsync(userLogin).ConfigureAwait(false);
+
+			if(_token == "Invalid request body content" || _token == "Invalid username or password")
+			{
+				Status = "Проверьте вводимые даные";
+				return;
+			}
+
+			await GetUsersAsync();
+			await GetContactsAsync();
+			await GetChannelsAsync();
+			await GetUserBlockingsAsync();
+
+			VisibilitySign = Visibility.Collapsed;
+			VisibilityChat = Visibility.Visible;
+		}
+
+		private async Task GetUserBlockingsAsync()
+		{
+			var blockings = await _blockingApi.GetBlockingsRequestAsync(_token).ConfigureAwait(false);
+			BlockingUsers = new ObservableCollection<BlockingResponse>(blockings);
+		}
+
+		private async Task AddBlockingUserAsync()
+		{
+			await _blockingApi.CreateBlockingRequestsAsync(_token, SelectedContact.UserId).ConfigureAwait(false);
+			await GetUserBlockingsAsync().ConfigureAwait(false);
+		}
+
+		private async Task DeleteBlockingUserAsync()
+		{
+			await _blockingApi.DeleteBlockingRequestAsync(_token, SelectedBlocking.UserId).ConfigureAwait(false);
+			await GetUserBlockingsAsync();
 		}
 	}
 }

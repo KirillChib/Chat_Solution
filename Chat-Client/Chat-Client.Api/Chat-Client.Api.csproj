@@ -54,9 +54,14 @@
     <Compile Include="Channel\IChannelApi.cs" />
     <Compile Include="Contact\ContactApi.cs" />
     <Compile Include="Contact\IContactApi.cs" />
+    <Compile Include="Extensions\MessageExtensions.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\JsonSerializeHelper.cs" />
+    <Compile Include="Helpers\MessageHelper.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Message\IMessageApi.cs" />
     <Compile Include="Message\MessageApi.cs" />
+    <Compile Include="Message\MessageView.cs" />
     <Compile Include="Request\BlockingRequest.cs" />
     <Compile Include="Request\ChannelMessageRequest.cs" />
     <Compile Include="Request\MessageToUser.cs" />
