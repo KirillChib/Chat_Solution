@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Chat_Server.Domain.Entities;
 using Chat_Server.Extensions;
@@ -15,8 +16,9 @@ namespace Chat_Server.Commands;
 
 public class DeleteBlockingCommand : AuthorizationCommand
 {
-	
-	public override string Path => @"/blocking";
+	private const string IdKey = "id";
+
+	public override string Path => $@"/blocking/(?<{IdKey}>\d+)";
 	public override HttpMethod Method => HttpMethod.Delete;
 
 	private IBlockingServices _blockingServices;
@@ -26,8 +28,14 @@ public class DeleteBlockingCommand : AuthorizationCommand
 	}
 
 	protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result) {
-		var requestBody = await context.GetRequestBodyAsync().ConfigureAwait(false);
-		var blocking = JsonSerializeHelper.Deserialize<Blocking>(requestBody);
+		var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
+		var blockingId = int.Parse(match.Groups[IdKey].Value);
+
+		var blocking = new Blocking
+		{
+			UserId = result.UserId,
+			BlockingUserId = blockingId
+		};
 
 		if (!await _blockingServices.BlockingExistAsync(blocking).ConfigureAwait(false)) {
 			await context.WriteResponseAsync(400, "Такого пользователя нет в блокировках").ConfigureAwait(false);

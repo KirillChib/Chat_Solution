@@ -6,7 +6,7 @@ using Chat_Client.Api.Response;
 namespace Chat_Client.Api.Blocking; 
 
 public interface IBlockingApi {
-	Task<string> CreateBlockingRequestsAsync(BlockingRequest blocking, string token);
+	Task<string> CreateBlockingRequestsAsync(string token, int userId);
 	Task<ICollection<BlockingResponse>> GetBlockingsRequestAsync(string token);
-	Task<string> DeleteBlockingRequestAsync(BlockingRequest blocking, string token);
+	Task<string> DeleteBlockingRequestAsync(string token, int userId);
 }

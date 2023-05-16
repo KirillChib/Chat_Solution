@@ -9,15 +9,15 @@ namespace Chat_Client.Api.Blocking;
 public class BlockingApi : ApiBase, IBlockingApi {
 	public BlockingApi(string baseUri) : base(baseUri) {
 	}
-	public async Task<string> CreateBlockingRequestsAsync(BlockingRequest blocking, string token) {
-		var response = await SendAsync(HttpMethod.Post, @"/blocking", token, blocking).ConfigureAwait(false);
+	public async Task<string> CreateBlockingRequestsAsync(string token, int userId) {
+		var response = await SendAsync(HttpMethod.Post, $@"/blocking/{userId}", token).ConfigureAwait(false);
 		return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 	}
 	public async Task<ICollection<BlockingResponse>> GetBlockingsRequestAsync(string token) {
 		return await SendAsync<ICollection<BlockingResponse>>(HttpMethod.Get, @"/blockings", token).ConfigureAwait(false);
 	}
-	public async Task<string> DeleteBlockingRequestAsync(BlockingRequest blocking, string token) {
-		var response = await SendAsync(HttpMethod.Delete, @"/blocking", token, blocking).ConfigureAwait(false);
+	public async Task<string> DeleteBlockingRequestAsync(string token, int userId) {
+		var response = await SendAsync(HttpMethod.Delete, $@"/blocking/{userId}", token).ConfigureAwait(false);
 		return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 	}
 }

@@ -3,6 +3,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Chat_Server.Domain.Entities;
 using Chat_Server.Extensions;
+using Chat_Server.Helpers;
+using Chat_Server.Request;
 using Chat_Server.Services.Channels;
 using Chat_Server.Services.JWT;
 
@@ -19,16 +21,17 @@ public class CreateChannelCommand : AuthorizationCommand {
 	}
 
 	protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result) {
-		var name = await context.GetRequestBodyAsync().ConfigureAwait(false);
+		var body = await context.GetRequestBodyAsync().ConfigureAwait(false);
+		var request = JsonSerializeHelper.Deserialize<ChannelRequest>(body);
 
-		if (await _channelServices.ChannelExistAsync(name)) {
-			await context.WriteResponseAsync(400, $"Канал с именем {name} уже существует");
+		if (await _channelServices.ChannelExistAsync(request.Name)) {
+			await context.WriteResponseAsync(400, $"Канал с именем {request.Name} уже существует");
 			return;
 		}
 
-		var channel = new Channel { Name = name };
+		var channel = new Channel { Name = request.Name };
 
 		await _channelServices.CreateChannelAsync(channel).ConfigureAwait(false);
-		await context.WriteResponseAsync(200, "Ok");
+		await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(channel));
 	}
 }

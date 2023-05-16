@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using Chat_Server.Services.Channels;
 using Chat_Server.Services.Contacts;
-
+using Chat_Server.Services.Blockings;
 
 namespace Chat_Server
 {
@@ -47,14 +47,16 @@ namespace Chat_Server
 			RegisterSingleton<ICommands, DeleteBlockingCommand>(registration);
 			RegisterSingleton<ICommands, GetUserBLockingsCommand>(registration);
 
-			RegisterSingleton<IChannelServices, ChannelServices>(registration);
+			
 			RegisterSingleton<IServer, Server>(registration);
 			RegisterSingleton<IUserServices, UserServices>(registration);
 			RegisterSingleton<IMessageService, MessageService>(registration);
 			RegisterSingleton<IContactServices, ContactServices>(registration);
+			RegisterSingleton<IChannelServices, ChannelServices>(registration);
+			RegisterSingleton<IBlockingServices, BlockingServices>(registration);
 			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
-			RegisterSingleton<IJwtService>(registration,
-				() => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
+			RegisterSingleton<IJwtService>(registration, () => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
+
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom

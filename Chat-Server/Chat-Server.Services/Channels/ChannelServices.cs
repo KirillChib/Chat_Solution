@@ -21,7 +21,7 @@ public class ChannelServices : IChannelServices {
 	}
 	public async Task<ICollection<Channel>> GetChannelsByNameAsync(string name) {
 		using var chatContext = new ChatDbContext();
-		return await chatContext.Channels.Where(c => c.Name.StartsWith(name, StringComparison.Ordinal)).ToListAsync().ConfigureAwait(false);
+		return await chatContext.Channels.Where(c => c.Name.Contains(name)).ToListAsync().ConfigureAwait(false);
 	}
 	public async Task<ICollection<Channel>> GetChannelsByUserIdAsync(int userId) {
 		using var chatContext = new ChatDbContext();
