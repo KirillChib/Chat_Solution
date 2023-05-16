@@ -7,10 +7,10 @@ using Chat_Client.Api.Response;
 namespace Chat_Client.Api.Channel; 
 
 public interface IChannelApi {
-	Task<string> CreateChannelRequestAsync(string token, string channelName);
+	Task<ChannelResponse> CreateChannelRequestAsync(string token, ChannelRequest channel);
 	Task<string> SubscribeChannelRequestAsync(string token, int channelId);
-	Task<ICollection<Channel>> GetUserChannelsAsync(string token);
-	Task<ICollection<Channel>> GetChannelByNameRequestAsync(string token, string channelName);
+	Task<ICollection<ChannelResponse>> GetUserChannelsAsync(string token);
+	Task<ICollection<ChannelResponse>> GetChannelByNameRequestAsync(string token, string channelName);
 	Task<string> AddChannelMessageRequestAsync(ChannelMessageRequest message, string token, int channelId);
 	Task<ICollection<ChannelMessageResponse>> GetChannelMessagesRequestAsync(string token, int channelId);
 	Task<ICollection<ChannelMessageResponse>> GetNewChannelMessagesRequestAsync(string token, int channelId, DateTime date);

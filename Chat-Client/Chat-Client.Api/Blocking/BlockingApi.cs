@@ -10,7 +10,7 @@ public class BlockingApi : ApiBase, IBlockingApi {
 	public BlockingApi(string baseUri) : base(baseUri) {
 	}
 	public async Task<string> CreateBlockingRequestsAsync(string token, int userId) {
-		var response = await SendAsync(HttpMethod.Post, @"/blocking", token).ConfigureAwait(false);
+		var response = await SendAsync(HttpMethod.Post, $@"/blocking/{userId}", token).ConfigureAwait(false);
 		return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 	}
 	public async Task<ICollection<BlockingResponse>> GetBlockingsRequestAsync(string token) {

@@ -90,7 +90,7 @@
 									Command="{Binding CreateChannelCommand}"/>
 						</StackPanel>
 						<TextBox Width="150"
-								 Text="{Binding Path=ChannelName}"/>
+								 Text="{Binding Path=CreateChannelName}"/>
 					</StackPanel>
 				</TabItem.Content>
 			</TabItem>
@@ -146,7 +146,7 @@
 							<ListView.View>
 								<GridView>
 									<GridViewColumn 
-										DisplayMemberBinding ="{Binding Path=Name}">
+										DisplayMemberBinding ="{Binding Path=UserName}">
 									</GridViewColumn>
 								</GridView>
 							</ListView.View>
@@ -215,7 +215,7 @@
 					<GridViewColumn Width="450"
 									DisplayMemberBinding="{Binding Path=FullMessage}">
 					</GridViewColumn>
-					<GridViewColumn>
+					<GridViewColumn Width="50">
 						<GridViewColumn.CellTemplate>
 							<DataTemplate>
 								<Image Source="{Binding Path=FilePath}"/>
@@ -254,21 +254,24 @@
 						   Text="{Binding Path=Status}"/>
 				<StackPanel Orientation="Horizontal">
 					<TextBox Width="200"
-							 Margin="10"/>
+							 Margin="10"
+							 Text="{Binding Path=LogIn}"/>
 					<TextBlock Text="Логин"
 							   FontSize="16"
 							   Margin="10"/>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
 					<TextBox Width="200"
-							 Margin="10"/>
+							 Margin="10"
+							 Text="{Binding Path=Password}"/>
 					<TextBlock Text="Пароль"
 							   FontSize="16"
 							   Margin="10"/>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal">
 					<TextBox Width="200"
-							 Margin="10"/>
+							 Margin="10"
+							 Text="{Binding Path=Name}"/>
 					<TextBlock Text="Имя"
 							   FontSize="16"
 							   Margin="10"/>

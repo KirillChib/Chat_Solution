@@ -27,10 +27,6 @@ public class GetUserBLockingsCommand : AuthorizationCommand {
 		var response = new List<BlockingResponse>();
 
 		var blockings = await _blockingServices.GetBlockingsByUserIdAsync(result.UserId).ConfigureAwait(false);
-		if (blockings.Count == 0) {
-			await context.WriteResponseAsync(404, "Ваш список блокировок пуст").ConfigureAwait(false);
-			return;
-		}
 
 		foreach (var block in blockings) 
 			response.Add(block.ToBlockingResponse());

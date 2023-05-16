@@ -5,6 +5,7 @@ using Chat_Client.Api.Contact;
 using Chat_Client.Api.Extensions;
 using Chat_Client.Api.Helpers;
 using Chat_Client.Api.Message;
+using Chat_Client.Api.Request;
 using Chat_Client.Api.Response;
 using Chat_Client.Api.User;
 using GalaSoft.MvvmLight;
@@ -21,7 +22,7 @@ namespace Chat_Client.ViewModel
 	public class MainViewModel : ViewModelBase
 	{
 		private const string BaseUri = "http://127.0.0.1:8888";
-		private const string _path = @"D:\Images";
+		private const string _path = "D:\\Images";
 
 		private readonly IUserApi _userApi = new UserApi(BaseUri);
 		private readonly IMessageApi _messageApi = new MessageApi(BaseUri);
@@ -29,19 +30,19 @@ namespace Chat_Client.ViewModel
 		private readonly IChannelApi _channelApi = new ChannelApi(BaseUri);
 		private readonly IBlockingApi _blockingApi = new BlockingApi(BaseUri);
 
-		private string _token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjUiLCJpc3MiOiJDaGF0LVNvbHV0aW9uIn0.fLFJ_dObDJZtbUyN7KeUpubYHDpwtQG6C_gBLpuhipU";
+		private string _token;
 
 		private ObservableCollection<UserResponse> users;
 		private ObservableCollection<UserContactResponse> contacts;
-		private ObservableCollection<Channel> channels;
+		private ObservableCollection<ChannelResponse> channels;
 		private ObservableCollection<MessageView> messagesView;
-		private ObservableCollection<Channel> searchChannels;
+		private ObservableCollection<ChannelResponse> searchChannels;
 		private ObservableCollection<BlockingResponse> blockingUsers;
 
 		private UserResponse selectedUser;
 		private UserContactResponse selectedContact;
-		private Channel selectedChannel;
-		private Channel searcSelectedChannel;
+		private ChannelResponse selectedChannel;
+		private ChannelResponse searcSelectedChannel;
 		private BlockingResponse selectedBlocking;
 
 		private string channelName;
@@ -110,15 +111,15 @@ namespace Chat_Client.ViewModel
 
 		public ObservableCollection<UserResponse> Users { get => users; set => Set(ref users, value); }
 		public ObservableCollection<UserContactResponse> Contacts { get => contacts; set => Set(ref contacts, value); }
-		public ObservableCollection<Channel> Channels { get => channels; set => Set(ref channels, value); }
+		public ObservableCollection<ChannelResponse> Channels { get => channels; set => Set(ref channels, value); }
 		public ObservableCollection<MessageView> MessagesView { get => messagesView; set => Set(ref messagesView, value); }
-		public ObservableCollection<Channel> SearchChannels { get => searchChannels; set => Set(ref searchChannels, value); }
+		public ObservableCollection<ChannelResponse> SearchChannels { get => searchChannels; set => Set(ref searchChannels, value); }
 		public ObservableCollection<BlockingResponse> BlockingUsers { get => blockingUsers; set => Set(ref blockingUsers,value); }
 
 		public UserResponse SelectedUser { get => selectedUser; set => Set(ref selectedUser, value); }
 		public UserContactResponse SelectedContact { get => selectedContact; set => Set(ref selectedContact, value); }
-		public Channel SelectedChannel { get => selectedChannel; set => Set(ref selectedChannel, value); }
-		public Channel SearcSelectedChannel { get => searcSelectedChannel; set => Set(ref searcSelectedChannel, value); }
+		public ChannelResponse SelectedChannel { get => selectedChannel; set => Set(ref selectedChannel, value); }
+		public ChannelResponse SearcSelectedChannel { get => searcSelectedChannel; set => Set(ref searcSelectedChannel, value); }
 		public BlockingResponse SelectedBlocking { get => selectedBlocking; set => Set(ref selectedBlocking,value); }
 
 		public bool IsChannel { get; set; }
@@ -157,12 +158,14 @@ namespace Chat_Client.ViewModel
 		private async Task GetChannelsAsync()
 		{
 			var channels = await _channelApi.GetUserChannelsAsync(_token).ConfigureAwait(false);
-			Channels = new ObservableCollection<Channel>(channels);
+			Channels = new ObservableCollection<ChannelResponse>(channels);
 		}
 
 		private void OpenFile()
 		{
 			using var fileDialog = new OpenFileDialog();
+			fileDialog.Filter = "File (*.bmp, *.jpg, *.png)|*.bmp;*.jpg;*.png";
+
 			if (fileDialog.ShowDialog() == DialogResult.Cancel)
 				return;
 
@@ -196,10 +199,12 @@ namespace Chat_Client.ViewModel
 			IsChannel = false;
 
 			var messages = await _messageApi.GetUserMessagesRequestAsync(_token, SelectedContact.UserId).ConfigureAwait(false);
-			MessagesView = new ObservableCollection<MessageView>();
+			var view = new ObservableCollection<MessageView>();
 
 			foreach (var message in messages)
-				MessagesView.Add(message.UserMessageToView(_path));
+				view.Add(message.UserMessageToView(_path));
+
+			MessagesView = new ObservableCollection<MessageView>(view);
 		}
 
 		private async Task GetChannelMessagesById()
@@ -218,14 +223,17 @@ namespace Chat_Client.ViewModel
 			await _channelApi.SubscribeChannelRequestAsync(_token, SearcSelectedChannel.Id).ConfigureAwait(false);
 
 			var chennels = await _channelApi.GetUserChannelsAsync(_token).ConfigureAwait(false);
-			Channels = new ObservableCollection<Channel>(chennels);
+
+			System.Windows.MessageBox.Show($"Вы подписались на {SearcSelectedChannel.Name}");
+
+			Channels = new ObservableCollection<ChannelResponse>(chennels);
 		}
 
 		private async Task SearchChannelAsync()
 		{
 			var channels = await _channelApi.GetChannelByNameRequestAsync(_token, ChannelName).ConfigureAwait(false);
 
-			SearchChannels = new ObservableCollection<Channel>(channels);
+			SearchChannels = new ObservableCollection<ChannelResponse>(channels);
 		}
 
 		private async Task SearchUserByNameAsync()
@@ -238,19 +246,29 @@ namespace Chat_Client.ViewModel
 		{
 			await _contactApi.AddUserContactRequestAsync(SelectedUser.UserId, _token).ConfigureAwait(false);
 
+			System.Windows.MessageBox.Show($"Добавлен контакт {SelectedUser.UserName}");
+
 			await GetContactsAsync().ConfigureAwait(false);
 		}
 
 		private async Task DeleteContactAsync()
 		{
-			await _contactApi.DeleteUserContactRequestAsync(SelectedUser.UserId, _token).ConfigureAwait(false);
+			await _contactApi.DeleteUserContactRequestAsync(SelectedContact.UserId, _token).ConfigureAwait(false);
+
+			System.Windows.MessageBox.Show($"Контакт {SelectedContact.UserName} удален");
 
 			await GetContactsAsync().ConfigureAwait(false);
 		}
 
 		private async Task CreateChannelAsync()
 		{
-			await _channelApi.CreateChannelRequestAsync(_token, CreateChannelName).ConfigureAwait(false);
+			var channel = new ChannelRequest
+			{
+				Name = CreateChannelName
+			};
+
+			var subscribe = await _channelApi.CreateChannelRequestAsync(_token, channel).ConfigureAwait(false);
+			await _channelApi.SubscribeChannelRequestAsync(_token, subscribe.Id).ConfigureAwait(false);
 
 			await GetChannelsAsync().ConfigureAwait(false);
 		}
@@ -302,12 +320,18 @@ namespace Chat_Client.ViewModel
 		private async Task AddBlockingUserAsync()
 		{
 			await _blockingApi.CreateBlockingRequestsAsync(_token, SelectedContact.UserId).ConfigureAwait(false);
+
+			System.Windows.MessageBox.Show($"Контакт {SelectedContact.UserName} добавлен в ЧС");
+
 			await GetUserBlockingsAsync().ConfigureAwait(false);
 		}
 
 		private async Task DeleteBlockingUserAsync()
 		{
 			await _blockingApi.DeleteBlockingRequestAsync(_token, SelectedBlocking.UserId).ConfigureAwait(false);
+
+			System.Windows.MessageBox.Show($"Контакт {SelectedBlocking.UserName} удален из ЧС");
+
 			await GetUserBlockingsAsync();
 		}
 	}

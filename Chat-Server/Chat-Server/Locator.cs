@@ -55,8 +55,8 @@ namespace Chat_Server
 			RegisterSingleton<IChannelServices, ChannelServices>(registration);
 			RegisterSingleton<IBlockingServices, BlockingServices>(registration);
 			RegisterSingleton<IEncryptionService, EncryptionSHA256Service>(registration);
-			RegisterSingleton<IJwtService>(registration,
-				() => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
+			RegisterSingleton<IJwtService>(registration, () => new JwtService(СonfigurationsTokens.Issuer, СonfigurationsTokens.SecretKey));
+
 		}
 
 		private static void RegisterSingleton<TFrom, TTo>(IExportRegistrationBlock registrationBlock) where TTo : TFrom
