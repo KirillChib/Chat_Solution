@@ -1,20 +1,33 @@
-using Chat_Server.Context;
-using Chat_Server.Domain.Entities;
-using Chat_Server.Services.Encryption;
+using AsyncCommandLibrary;
 using GalaSoft.MvvmLight;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
-namespace Chat_Server.ViewModel; 
+namespace Chat_Server.ViewModel;
 
-public class MainViewModel : ViewModelBase {
+public class MainViewModel : ViewModelBase
+{
 	private const string ServerUri = "http://127.0.0.1:8888/";
 
-	public MainViewModel() {
+	private string stutus;
+	public string Stutus { get => stutus; set => Set(ref stutus,value); }
+	
 
-		// todo(v): этот код стоит вызывать либо при событии Loaded, либо в App.cs
-		CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
+	private ICommand startCommand;
+	public ICommand StartCommand => startCommand ??= new AsyncRelayCommand(StartAsync);
+
+	public MainViewModel()
+	{	
 	}
 
-	private IServer CreateServer() {
+	private IServer CreateServer()
+	{
 		return Locator.Current.Locate<IServer>();
+	}
+
+	private async Task StartAsync()
+	{
+		Stutus = "Сервер запущен";
+		await CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
 	}
 }

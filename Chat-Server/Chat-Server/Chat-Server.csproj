@@ -40,6 +40,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncCommandLibrary">
+      <HintPath>..\..\..\..\C++\Thread_DZ_1\AsyncCommandLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator, Version=2.0.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.2.0.7\lib\net48\CommonServiceLocator.dll</HintPath>
     </Reference>

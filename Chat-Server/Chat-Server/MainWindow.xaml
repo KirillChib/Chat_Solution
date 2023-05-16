@@ -8,6 +8,18 @@
         Title="MainWindow" Height="450" Width="800"
 		DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
-        
-    </Grid>
+		<StackPanel VerticalAlignment="Center">
+			<TextBlock HorizontalAlignment="Center"
+				   Width="200"
+				   Height="30"
+				   FontSize="18"
+				   Text="{Binding Path=Stutus}"/>
+			<Button Width="100"
+					Height="30"
+					Margin="10"
+					Content="Start"
+					VerticalAlignment="Bottom"
+					Command="{Binding StartCommand}"/>
+		</StackPanel>
+	</Grid>
 </Window>
