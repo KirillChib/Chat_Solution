@@ -48,6 +48,7 @@ namespace Chat_Server.Commands {
 				userMessage.FilePath = null;
 			}
 			else {
+				// todo(v): HasFile может определяться по IsNullOrEmpty(FilePath)? Если да, то лучше убрать потенциальное место рассинхрона данных
 				userMessage.HasFile = true;
 				userMessage.FilePath = FileHelper.SaveFile(ConfigurationsFiles.Path, message.FileName, message.File);
 			}

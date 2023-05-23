@@ -28,6 +28,7 @@ public class GetUserBLockingsCommand : AuthorizationCommand {
 
 		var blockings = await _blockingServices.GetBlockingsByUserIdAsync(result.UserId).ConfigureAwait(false);
 
+		// todo(v): можно переписать на linq
 		foreach (var block in blockings) 
 			response.Add(block.ToBlockingResponse());
 

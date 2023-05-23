@@ -4,6 +4,7 @@ using Chat_Server.Response;
 
 namespace Chat_Server.Extensions {
 	public static class UserExtensions {
+		// todo(v): некорректное имя метода. Перепутаны местами слова
 		public static UserMessageResponse ToResponseMessage(this UserMessage userMessage) {
 			var responseMessage = new UserMessageResponse {
 				Id = userMessage.Id,

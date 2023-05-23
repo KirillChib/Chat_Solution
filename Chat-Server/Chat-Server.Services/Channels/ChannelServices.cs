@@ -8,6 +8,7 @@ using Chat_Server.Domain.Entities;
 
 namespace Chat_Server.Services.Channels;
 
+// todo(v): между методами стоит добавлять пустую строку. Так проще читается код
 public class ChannelServices : IChannelServices {
 	public async Task CreateChannelAsync(Channel channel) {
 		using var chatContext = new ChatDbContext();

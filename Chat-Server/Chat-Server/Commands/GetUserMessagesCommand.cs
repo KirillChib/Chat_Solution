@@ -31,6 +31,7 @@ public class GetUserMessagesCommand : AuthorizationCommand {
 
 		var messages = await _messageServices.GetUserMessagesByIdAsync(result.UserId, id).ConfigureAwait(false);
 
+		// todo(v): можно переписать на linq
 		if (messages.Count > 0)
 			foreach (var message in messages)
 				response.Add(message.ToResponseMessage());

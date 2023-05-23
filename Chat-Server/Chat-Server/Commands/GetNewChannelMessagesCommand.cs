@@ -45,6 +45,7 @@ public class GetNewChannelMessagesCommand : AuthorizationCommand {
 			message.ToChannelMessageResponse(name);
 		}
 
+		// todo(v): пустой response
 		await context.WriteResponseAsync(200, JsonSerializeHelper.Serialize(response)).ConfigureAwait(false);
 	}
 }

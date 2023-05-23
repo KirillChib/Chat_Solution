@@ -25,6 +25,7 @@ public class GetUserContactsCommand : AuthorizationCommand {
 
 		var users = new List<UserContactResponse>();
 
+		// todo(v): можно переписать на linq
 		foreach (var contact in contacts)
 			users.Add(contact.ToUserContactResponse());
 

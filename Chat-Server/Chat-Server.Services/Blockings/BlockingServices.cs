@@ -25,6 +25,7 @@ public class BlockingServices : IBlockingServices {
 	}
 	public async Task DeleteBlockingAsync(Blocking blocking) {
 		using var chatContext = new ChatDbContext();
+		// todo(v): Attach или Add?
 		chatContext.Blockings.Attach(blocking);
 		chatContext.Blockings.Remove(blocking);
 

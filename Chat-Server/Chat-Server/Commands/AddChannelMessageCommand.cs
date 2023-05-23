@@ -24,6 +24,7 @@ namespace Chat_Server.Commands {
 		}
 
 		protected override async Task HandleRequestInternalAsync(HttpListenerContext context, CheckJwtResult result) {
+			// todo(v): этот код можно вынести в extension и уменьшить объем кода в коммандах
 			var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
 			var channelId = int.Parse(match.Groups[IdKey].Value);
 

@@ -1,4 +1,3 @@
-using AsyncCommandLibrary;
 using Chat_Client.Api.Blocking;
 using Chat_Client.Api.Channel;
 using Chat_Client.Api.Contact;
@@ -16,14 +15,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Chat_Client.Commands;
 
 namespace Chat_Client.ViewModel
 {
+	// todo(v): очень большой класс. Стоит разбить на независимые контролы
 	public class MainViewModel : ViewModelBase
 	{
+		// todo(v): BaseUrl стоит хранить в классе с константами или в конфигурации
 		private const string BaseUri = "http://127.0.0.1:8888";
 		private const string _path = "D:\\Images";
 
+		// todo(v): Используй DI контейнер
 		private readonly IUserApi _userApi = new UserApi(BaseUri);
 		private readonly IMessageApi _messageApi = new MessageApi(BaseUri);
 		private readonly IContactApi _contactApi = new ContactApi(BaseUri);
@@ -32,6 +35,7 @@ namespace Chat_Client.ViewModel
 
 		private string _token;
 
+		// todo(v): в wpf нужно использовать классы Model (реализуемые паттерн наблюдателя) для хранения и отображения данных
 		private ObservableCollection<UserResponse> users;
 		private ObservableCollection<UserContactResponse> contacts;
 		private ObservableCollection<ChannelResponse> channels;
@@ -39,6 +43,7 @@ namespace Chat_Client.ViewModel
 		private ObservableCollection<ChannelResponse> searchChannels;
 		private ObservableCollection<BlockingResponse> blockingUsers;
 
+		// todo(v): в wpf нужно использовать классы Model (реализуемые паттерн наблюдателя) для хранения и отображения данных
 		private UserResponse selectedUser;
 		private UserContactResponse selectedContact;
 		private ChannelResponse selectedChannel;
@@ -52,6 +57,7 @@ namespace Chat_Client.ViewModel
 		private string password;
 		private string name;
 		private string status;
+		// todo(v): лучше сделать как enum. Иначе есть возможность одновременно включить показ обоих контролов
 		private Visibility visibilitySign;
 		private Visibility visibilityChat;
 
@@ -123,10 +129,10 @@ namespace Chat_Client.ViewModel
 		public BlockingResponse SelectedBlocking { get => selectedBlocking; set => Set(ref selectedBlocking,value); }
 
 		public bool IsChannel { get; set; }
-		public byte[] MessageFile { get; set; } = null;
+		public byte[] MessageFile { get; set; } = null; // todo(v): ненужная инициализация дефолтным значением
 		public string FileName { get; set; } = null;
 		public string Message { get; set; }
-		public string LogIn { get => logIn; set => Set(ref logIn,value); }
+		public string LogIn { get => logIn; set => Set(ref logIn,value); } // todo(v): некорректные отступы
 		public string Password { get => password; set => Set(ref password,value); }
 		public string Name { get => name; set => Set(ref name,value); }
 		public string Status { get => status; set => Set(ref status,value); }
@@ -151,12 +157,14 @@ namespace Chat_Client.ViewModel
 
 		private async Task GetContactsAsync()
 		{
+			// todo(v): опечатка в слове cntacts
 			var cntacts = await _contactApi.GetUserContactsRequestAsync(_token).ConfigureAwait(false);
 			Contacts = new ObservableCollection<UserContactResponse>(cntacts);
 		}
 
 		private async Task GetChannelsAsync()
 		{
+			// todo(v): локальная переменная одноименна с полем
 			var channels = await _channelApi.GetUserChannelsAsync(_token).ConfigureAwait(false);
 			Channels = new ObservableCollection<ChannelResponse>(channels);
 		}
@@ -222,6 +230,7 @@ namespace Chat_Client.ViewModel
 		{
 			await _channelApi.SubscribeChannelRequestAsync(_token, SearcSelectedChannel.Id).ConfigureAwait(false);
 
+			// todo(v): опечатка в слове chennels
 			var chennels = await _channelApi.GetUserChannelsAsync(_token).ConfigureAwait(false);
 
 			System.Windows.MessageBox.Show($"Вы подписались на {SearcSelectedChannel.Name}");
@@ -298,7 +307,7 @@ namespace Chat_Client.ViewModel
 
 			if(_token == "Invalid request body content" || _token == "Invalid username or password")
 			{
-				Status = "Проверьте вводимые даные";
+				Status = "Проверьте вводимые даные"; // todo(v): опечатка
 				return;
 			}
 

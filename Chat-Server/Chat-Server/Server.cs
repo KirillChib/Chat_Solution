@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Chat_Server.Common.Extensions;
 using Chat_Server.Extensions;
 
-namespace Chat_Server; 
+namespace Chat_Server;
 
+// todo(v): часть кода написано в BSD стиле (фигурная скобка на следующей строке), а часть в K&R стиле (фигурная скобка на текущей строке). Нужно привести проект к одному виду
 public class Server : IServer {
 	private readonly ICommands[] _commands;
 	private readonly object _lockObject = new object();
@@ -28,6 +29,7 @@ public class Server : IServer {
 			_listener.Start();
 		}
 
+		// todo(v): вывод в консоль не нужен. Можно либо удалить эту строку, либо добавить логи и писать в них
 		Console.WriteLine("Server started");
 
 		while (_listener.IsListening)
@@ -39,6 +41,7 @@ public class Server : IServer {
 
 		Task.Run(async () => {
 			try {
+				// todo(v): вывод в консоль не нужен. Можно либо удалить эту строку, либо добавить логи и писать в них
 				Console.WriteLine($@"Request {context.Request.HttpMethod} {context.Request.Url}");
 
 				var method = context.Request.HttpMethod;

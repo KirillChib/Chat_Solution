@@ -34,6 +34,7 @@ namespace Chat_Server.Commands {
 
 			var messages = await _messageService.GetNewUserMessagesByIdAsync(result.UserId, id, date);
 
+			// todo(v): можно переписать на linq
 			if (messages.Count > 0)
 				foreach (var message in messages)
 					response.Add(message.ToResponseMessage());

@@ -27,6 +27,7 @@ public class AddUserContactCommand : AuthorizationCommand {
 		var match = Regex.Match(context.Request.Url.AbsolutePath, Path, RegexOptions.IgnoreCase);
 		var userContactId = int.Parse(match.Groups[IdKey].Value);
 
+		// todo(v): где-то объекты меняются через ToResponse, а где-то напрямую. Подобное лучше делать через extension методы
 		var contact = new UserContact {
 			UserId = result.UserId,
 			ContactUserId = userContactId

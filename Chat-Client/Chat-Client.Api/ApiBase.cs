@@ -29,6 +29,7 @@ namespace Chat_Client.Api
 		{
 			var uri = _baseUri + path;
 
+			// todo(v): используй сторонние решения для http запросов. Например RestSharp из нугета
 			var request = new HttpRequestMessage(method, uri);
 			if (!string.IsNullOrEmpty(token))
 				request.Headers.Add(AuthorizationHeaderKey, $"Bearer {token}");

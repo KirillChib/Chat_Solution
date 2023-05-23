@@ -1,10 +1,11 @@
-using AsyncCommandLibrary;
 using GalaSoft.MvvmLight;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using Chat_Server.Common.Extensions;
+using GalaSoft.MvvmLight.CommandWpf;
 
 namespace Chat_Server.ViewModel;
 
+// todo(v): проблемы табуляции в файле. Используй resharper
 public class MainViewModel : ViewModelBase
 {
 	private const string ServerUri = "http://127.0.0.1:8888/";
@@ -14,7 +15,7 @@ public class MainViewModel : ViewModelBase
 	
 
 	private ICommand startCommand;
-	public ICommand StartCommand => startCommand ??= new AsyncRelayCommand(StartAsync);
+	public ICommand StartCommand => startCommand ??= new RelayCommand(Start);
 
 	public MainViewModel()
 	{	
@@ -25,9 +26,9 @@ public class MainViewModel : ViewModelBase
 		return Locator.Current.Locate<IServer>();
 	}
 
-	private async Task StartAsync()
+	private async void Start()
 	{
 		Stutus = "Сервер запущен";
-		await CreateServer().StartAsync(ServerUri).ConfigureAwait(false);
+		CreateServer().StartAsync(ServerUri).FireAndForgetSafeAsync();
 	}
 }
